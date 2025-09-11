@@ -1,0 +1,35 @@
+.scroll {
+  position: fixed;
+  bottom: 150px;
+  right: 30px;
+  background-color: rgb(255, 187, 0);
+  z-index: 2000;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  cursor: pointer;
+}
+.scroll:hover {
+  background-color: rgb(255, 200, 49);
+}
+@media screen and (max-width: 600px) {
+  .scroll {
+    bottom: 100px;
+    right: 20px;
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .scroll {
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
+}

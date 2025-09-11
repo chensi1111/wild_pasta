@@ -1,0 +1,493 @@
+/* *{
+    border: 1px solid red;
+} */
+ .wrapper{
+  overflow: hidden;
+ }
+.container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-image: url("/src/assets/banner.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: zoomOut 3s ease-out forwards;
+  position: relative;
+  overflow: hidden;
+}
+.slogan {
+  position: absolute;
+  opacity: 0;
+  line-height: 55px;
+  white-space: nowrap;
+  animation: sloganIn 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.first {
+  bottom: 40%;
+  color: rgb(255, 187, 0);
+  font-size: 40px;
+  font-family: "slogan";
+}
+.last {
+  bottom: 30%;
+  color: white;
+  font-size: 30px;
+  font-family: "slogan2";
+}
+.arrow {
+  position: absolute;
+  bottom: 10%;
+  left: 150px;
+  opacity: 0;
+  animation: arrow 1.5s linear infinite;
+  animation-delay: 2.5s;
+  cursor: pointer;
+  font-size: 64px;
+}
+.videoContainer {
+  width: 100%;
+  height: 80vh;
+  position: relative;
+  font-family: "slogan2";
+}
+.videoInfo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 150px;
+  color: white;
+}
+.videoTitle {
+  font-size: 35px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 2px 2px black;
+}
+.videoTitle::after {
+  content: "";
+  display: block;
+  width: 300px;
+  height: 2px;
+  background-color: rgb(180, 180, 180);
+  margin-top: 15px;
+}
+.videoContent {
+  font-size: 20px;
+  color: rgb(220, 220, 220);
+  margin-bottom: 15px;
+  line-height: 25px;
+  text-shadow: 1px 1px black;
+}
+.videoLastWord {
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px black;
+}
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.infoContainer {
+  margin-left: 150px;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
+  padding: 100px 0 25px 75px;
+  overflow: hidden;
+}
+.infoTitle {
+  font-size: 55px;
+  font-weight: bold;
+  color: rgb(255, 187, 0);
+  font-family: "slogan";
+  letter-spacing: 15px;
+}
+.infoSubTitle {
+  font-size: 30px;
+  color: white;
+  margin-top: 30px;
+  font-family: "solgan2";
+}
+.infoContent {
+  font-size: 20px;
+  color: rgb(220, 220, 220);
+  margin-top: 15px;
+  font-family: "solgan2";
+}
+.cardsContainer {
+  margin-left: 150px;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
+  padding: 50px 0;
+  display: flex;
+  font-family: "solgan2";
+  overflow: hidden;
+}
+.card {
+  width: 25%;
+  height: 500px;
+  background-size: cover;
+  margin-right: 20px;
+  border-radius: 5px;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card1 {
+  background-image: linear-gradient(
+      to bottom,
+      rgb(3, 0, 15) 0%,
+      rgba(3, 0, 15, 0.75) 30%,
+      rgba(3, 0, 15, 0) 100%
+    ),
+    url("/src/assets/noodle.webp");
+}
+.card2 {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(3, 0, 15, 1) 0%,
+      rgba(3, 0, 15, 0.75) 30%,
+      rgba(3, 0, 15, 0) 100%
+    ),
+    url("/src/assets/fire.webp");
+  background-position: left;
+}
+.card3 {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(32, 2, 14, 1) 0%,
+      rgba(32, 2, 14, 0.75) 30%,
+      rgba(32, 2, 14, 0) 100%
+    ),
+    url("/src/assets/meat.webp");
+}
+.card:last-child {
+  width: 50%;
+  margin-right: 0;
+}
+.cardTitle {
+  font-size: 22px;
+  color: white;
+  width: 80%;
+  text-align: center;
+}
+.card:last-child .cardTitle {
+  width: 65%;
+}
+.cardTitle::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: rgb(100, 100, 100);
+  margin-top: 15px;
+}
+.cardTitle span {
+  color: rgb(255, 187, 0);
+}
+.cardContent {
+  font-size: 16px;
+  color: rgb(180, 180, 180);
+  padding: 20px 10% 0;
+}
+.card:last-child .cardContent {
+  padding: 20px 17.5% 0;
+}
+.boxContainer {
+  display: flex;
+  margin: 30px 0;
+  gap: 100px;
+  padding: 0 100px;
+  justify-content: center;
+}
+.box {
+  width: 600px;
+  height: 700px;
+  border-radius: 15px;
+  box-shadow: 5px 5px rgb(20, 11, 2);
+  background: url("../../assets/woodTexture.jpg");
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.box:last-child {
+  background: url("../../assets/woodTexture2.jpg");
+}
+.box:hover {
+  transform: translate(-5px, -5px);
+}
+.boxTitleContainer {
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  top: 50px;
+}
+.boxTitleContainer video {
+  object-fit: cover;
+}
+.boxTitle {
+  font-size: 100px;
+  letter-spacing: 15px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  color: white;
+  font-family: "font1";
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: overlay;
+}
+.boxText {
+  font-family: "font1";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  word-break: keep-all;
+  color: rgb(68, 41, 30);
+}
+.claw {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  display: none;
+}
+.claw.show {
+  display: block;
+}
+@keyframes zoomOut {
+  from {
+    background-size: 120%;
+  }
+  to {
+    background-size: 100%;
+  }
+}
+@keyframes sloganIn {
+  from {
+    opacity: 0;
+    left: 200px;
+    letter-spacing: 10px;
+  }
+  to {
+    opacity: 100%;
+    left: 150px;
+    letter-spacing: normal;
+  }
+}
+@keyframes arrow {
+  from {
+    opacity: 0;
+    bottom: 10%;
+  }
+  to {
+    opacity: 100%;
+    bottom: calc(10% - 30px);
+  }
+}
+@media screen and (max-width: 1200px) {
+  .infoContainer,
+  .cardsContainer {
+    margin-left: 80px;
+  }
+  .arrow {
+    left: 80px;
+    font-size: 48px;
+  }
+  .card {
+    margin-right: 10px;
+    height: 450px;
+  }
+  .box {
+    height: 600px;
+  }
+  .boxContainer {
+    gap: 50px;
+    padding: 0 100px;
+  }
+  .boxTitle {
+    font-size: 80px;
+    letter-spacing: 10px;
+  }
+  .boxText {
+    font-size: 36px;
+  }
+  .claw {
+    width: 250px;
+    height: 250px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  @keyframes sloganIn {
+    from {
+      opacity: 0;
+      left: 200px;
+      letter-spacing: 10px;
+    }
+    to {
+      opacity: 100%;
+      left: 80px;
+      letter-spacing: normal;
+    }
+  }
+  .container,
+  .videoContainer {
+    height: 500px;
+  }
+  .infoContainer,
+  .cardsContainer {
+    margin-left: 40px;
+  }
+  .videoInfo {
+    left: 80px;
+  }
+  .cardsContainer {
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+  .card,
+  .card:last-child {
+    width: 100%;
+  }
+  .cardTitle {
+    width: 65%;
+  }
+  .cardContent {
+    padding: 20px 17.5% 0;
+  }
+  .boxContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
+  .box {
+    width: 500px;
+  }
+}
+@media screen and (max-width: 768px) {
+  @keyframes sloganIn {
+    from {
+      opacity: 0;
+      left: 100px;
+      letter-spacing: 10px;
+    }
+    to {
+      opacity: 100%;
+      left: 30px;
+      letter-spacing: normal;
+    }
+  }
+  .container {
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .slogan {
+    line-height: 25px;
+  }
+  .first {
+    font-size: 22px;
+  }
+  .last {
+    font-size: 18px;
+  }
+  .arrow {
+    left: 30px;
+    font-size: 36px;
+  }
+  .videoInfo {
+    left: 30px;
+  }
+  .videoTitle {
+    font-size: 22px;
+  }
+  .videoTitle::after {
+    margin-top: 10px;
+  }
+  .videoContent {
+    line-height: 20px;
+    font-size: 14px;
+  }
+  .videoLastWord {
+    font-size: 18px;
+  }
+  .videoContainer {
+    height: 400px;
+  }
+  .infoContainer,
+  .cardsContainer {
+    margin-left: 20px;
+  }
+  .infoContainer {
+    padding: 30px 0 25px 25px;
+  }
+  .infoTitle {
+    font-size: 24px;
+    letter-spacing: 10px;
+  }
+  .infoSubTitle {
+    font-size: 20px;
+    margin-top: 15px;
+  }
+  .infoContent {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  .cardsContainer {
+    padding: 30px 0;
+  }
+  .card {
+    height: 350px;
+  }
+  .cardContent {
+    font-size: 14px;
+  }
+  .box {
+    width: 350px;
+    height: 400px;
+  }
+  .boxTitleContainer {
+    height: 100px;
+    position: absolute;
+    top: 20px;
+  }
+   .boxTitle {
+    font-size: 70px;
+  }
+  .boxText {
+    font-size: 24px;
+  }
+  .claw {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (max-width: 412px) {
+  .first {
+    font-size: 20px;
+  }
+  .videoContainer {
+    height: 350px;
+  }
+  .cardTitle,
+  .card:last-child .cardTitle {
+    width: 80%;
+  }
+  .cardContent,
+  .card:last-child .cardContent {
+    padding: 20px 10% 0;
+  }
+    .box {
+    width: 300px;
+    height: 400px;
+  }
+}

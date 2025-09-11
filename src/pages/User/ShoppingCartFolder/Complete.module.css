@@ -1,0 +1,162 @@
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  min-height: 300px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px 30px;
+  box-shadow: 4px 4px gray;
+  position: relative;
+}
+.checkCircle {
+  font-size: 48px;
+  color: green;
+  text-align: center;
+  margin: 10px 0 0;
+}
+.checkCircle.error {
+  color: rgb(180, 0, 0);
+}
+.formTitle {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.formInfo {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.titles span{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.titles .infoTitle {
+  width: 100px;
+}
+.titles.total {
+  font-size: 18px;
+  font-weight: bold;
+  border-top: 1px solid rgba(230, 230, 230, 0.8);
+  padding-top: 8px;
+}
+.titles.point {
+  color: green;
+  margin-bottom: 20px;
+}
+.subTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 12px 0 20px;
+}
+.foods {
+  background-color: rgba(230, 230, 230, 0.8);
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.food {
+  margin-bottom: 5px;
+}
+.remarks {
+  margin-bottom: 20px;
+}
+.remark {
+  background-color: rgba(230, 230, 230, 0.8);
+  padding: 10px 15px;
+  border-radius: 5px;
+  word-wrap: break-word;
+}
+.contact {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.button {
+  max-width: 600px;
+  padding: 10px 15px;
+  background-color: rgb(180, 0, 0);
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+.button:hover {
+  background-color: rgb(200, 0, 0);
+}
+.button.error {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 60px);
+}
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px 20px;
+  }
+  .container,
+  .button {
+    font-size: 14px;
+  }
+  .button {
+    padding: 8px 10px;
+  }
+  .titles .infoTitle {
+    width: 80px;
+  }
+  .checkCircle {
+    font-size: 40px;
+  }
+  .formTitle {
+    font-size: 20px;
+  }
+  .formInfo {
+    font-size: 12px;
+  }
+  .subTitle {
+    font-size: 16px;
+  }
+  .button.error {
+    width: calc(100% - 40px);
+  }
+}
+@media screen and (max-width: 414px) {
+  .container,
+  .button {
+    font-size: 12px;
+  }
+  .titles {
+    margin-bottom: 5px;
+  }
+  .titles .infoTitle {
+    width: 60px;
+  }
+  .titles.total {
+    padding-top: 5px;
+  }
+  .subTitle {
+    margin: 10px 0 15px;
+  }
+  .foods {
+    margin-bottom: 15px;
+  }
+  .titles.point {
+    margin-bottom: 15px;
+  }
+  .remark,
+  .foods {
+    padding: 8px 12px;
+  }
+}

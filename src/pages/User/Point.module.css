@@ -1,0 +1,150 @@
+.container {
+  position: relative;
+  padding-bottom: 50px;
+}
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.point {
+  margin-bottom: 10px;
+}
+.describe {
+  font-size: 14px;
+  color: rgb(180, 0, 0);
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ccc;
+  padding: 8px 20px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+.row {
+  color: rgb(180, 0, 0);
+}
+.earn {
+  color: green;
+}
+.pagination {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.pointsContainer {
+  overflow-x: auto;
+}
+.pointsContainer::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.pointsContainer::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+
+.pointsContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.pointsContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 189px;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #555;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .table th,
+  .table td {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  .table th {
+    font-size: 14px;
+  }
+  .loadingContainer {
+    min-height: 169px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .describe {
+    font-size: 12px;
+  }
+  .point {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .table th,
+  .table td {
+    padding: 5px 12px;
+  }
+  .loadingContainer {
+    min-height: 145px;
+  }
+  .loading,.empty{
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .title {
+    font-size: 14px;
+  }
+  .point {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  .table th,
+  .table td {
+    font-size: 12px;
+  }
+  .loadingContainer {
+    min-height: 130px;
+  }
+  .loading,.empty{
+    font-size: 12px;
+  }
+}

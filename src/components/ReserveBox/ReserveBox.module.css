@@ -1,0 +1,239 @@
+.container {
+  width: 800px;
+  height: fit-content;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  padding: 50px;
+  overflow: auto;
+}
+.close {
+  color: black;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+.title span {
+  font-size: 18px;
+  margin-left: 3px;
+}
+.selectContainer {
+  display: flex;
+}
+.dateContainer {
+  width: 50%;
+  margin-right: 30px;
+}
+.detailContainer {
+  width: 50%;
+  padding: 30px 0;
+}
+.peopleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.counts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.count {
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid black;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+}
+.subTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.timeItem {
+  width: fit-content;
+  padding: 5px 10px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: rgb(240, 240, 240);
+  user-select: none;
+  cursor: pointer;
+}
+.timeItem:hover {
+  background-color: rgb(220, 220, 220);
+}
+.timeItem.active {
+  border: 2px solid green;
+  background-color: white;
+}
+.timeItem.disable {
+  background-color: rgb(180, 180, 180);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.remarkContainer {
+  display: flex;
+}
+.remarkInput {
+  margin-right: 10px;
+}
+textarea {
+  height: 80px;
+  width: 300px;
+  padding: 0 5px;
+  border: 1px solid black;
+}
+.remarkContent {
+  font-size: 14px;
+}
+.themeContainer {
+  display: flex;
+  margin: 20px 0;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.theme {
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 10px;
+  background-color: rgb(240, 240, 240);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.theme:hover {
+  background-color: rgb(220, 220, 220);
+}
+.theme.active {
+  border: 2px solid green;
+  background-color: white;
+}
+.confirm {
+  font-size: 18px;
+  border: 2px solid black;
+  padding: 3px 10px;
+  width: fit-content;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.confirm:hover {
+  border: 2px solid green;
+  color: green;
+}
+.warning {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 650px;
+    padding: 40px 35px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 380px;
+    height: 600px;
+    padding: 40px 25px;
+  }
+  .close{
+    top: 15px;
+    left: 15px;
+    font-size: 18px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .title span {
+    font-size: 16px;
+  }
+  .selectContainer {
+    flex-direction: column;
+  }
+  .dateContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-right: 0;
+    height: 100%;
+  }
+  .detailContainer {
+    width: 100%;
+    padding: 15px 0;
+  }
+  .button {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+  }
+  .count {
+    width: 20px;
+    font-size: 18px;
+  }
+  .timeItem,.theme {
+    font-size: 14px;
+  }
+  .remarkContainer{
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  .confirm{
+    font-size: 14px;
+  }
+  .container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .container::-webkit-scrollbar-thumb:hover {
+    background-color: transparent;
+  }
+}
+@media screen and (max-width: 412px){
+    .container {
+    width: 330px;
+    height: 500px;
+    padding: 30px 15px;
+    border-radius: 10px;
+  }
+}

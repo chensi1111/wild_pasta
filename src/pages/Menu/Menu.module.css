@@ -1,0 +1,211 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+}
+.notice{
+  color: white;
+  margin-top: 15px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+.book {
+  width: 450px;
+  height: 550px;
+  border-radius: 0 20px 20px 0;
+  position: relative;
+  transition-duration: 1s;
+  perspective: 1500;
+}
+.cover,
+.backCover {
+  background: url("../../assets/cover.webp");
+  width: 100%;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 0 0 5px rgb(41, 41, 41);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center left;
+}
+.cover {
+  position: absolute;
+  z-index: 4;
+  transition: transform 1s;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+.backCover {
+  position: relative;
+  z-index: -1;
+}
+.book.coverOpen {
+  transform: translateX(200px);
+  box-shadow: 0 0 3px rgb(99, 98, 98);
+}
+.cover.coverOpen {
+  transition: transform 1.5s, z-index 0.5s 0.5s;
+  transform: rotateY(-180deg);
+  z-index: 1;
+}
+
+.page {
+  width: 420px;
+  height: 520px;
+  background: url("../../assets/paper.wecover.webp");
+  position: absolute;
+  margin-top: 15px;
+  border-radius: 0 15px 15px 0;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  transition-duration: 1.5s;
+  cursor: pointer;
+}
+.page.pageOpen {
+  transform: rotateY(-180deg);
+}
+.page.coverOpen {
+  box-shadow: 0 0 3px rgb(99, 98, 98);
+}
+.page1 {
+  z-index: 3;
+}
+.page2 {
+  z-index: 2;
+}
+.page3 {
+  z-index: 1;
+}
+.page1.pageOpen {
+  z-index: 2;
+}
+.page2.pageOpen {
+  z-index: 3;
+}
+.page3.pageOpen {
+  z-index: 4;
+}
+.frontPage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  padding: 30px 20px;
+}
+.backPage {
+  transform: rotateY(180deg);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  padding: 30px 20px;
+}
+.frontCoverPage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 38px;
+  letter-spacing: 10px;
+  font-family: "font1";
+  font-weight: bold;
+}
+.backCoverPage {
+  transform: rotateY(180deg);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.title {
+  font-size: 22px;
+  width: fit-content;
+  padding: 5px 10px;
+  border-bottom: 2px solid black;
+  margin: 0 auto 30px;
+  font-weight: bold;
+}
+.foodContainer {
+  margin-bottom: 15px;
+}
+.firstLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+.info {
+  font-size: 12px;
+  color: gray;
+}
+.pageNumber {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+}
+.singlePage {
+  width: 420px;
+  height: 520px;
+  background: url("../../assets/paper.wecover.webp");
+  margin-bottom: 15px;
+  padding: 30px 20px;
+  position: relative;
+}
+.singleCover {
+  width: 420px;
+  height: 520px;
+  background: url("../../assets/cover.webp");
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 38px;
+  letter-spacing: 10px;
+  font-family: "font1";
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 30px 0;
+  }
+  .singlePage,
+  .singleCover {
+    width: 370px;
+    height: 470px;
+  }
+}
+@media screen and (max-width: 412px) {
+  .singlePage {
+    padding: 15px;
+  }
+  .singlePage,
+  .singleCover {
+    width: 320px;
+    height: 420px;
+  }
+  .title {
+    font-size: 20px;
+    margin: 0 auto 15px;
+  }
+  .name,
+  .price {
+    font-size: 14px;
+  }
+  .info {
+    font-size: 10px;
+  }
+  .pageNumber {
+    font-size: 14px;
+  }
+}

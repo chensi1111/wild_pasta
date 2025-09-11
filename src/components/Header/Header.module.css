@@ -1,0 +1,106 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    background-color: rgba(30, 30, 30, 0.5);
+    width: 100%;
+    height: 80px;
+    padding: 0 30px;
+    z-index: 100;
+}
+.navContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.navs{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 100%;
+}
+.logo{
+    width: fit-content;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.logo span{
+    font-family: 'font1';
+    color: white;
+    font-size: 30px;
+}
+img{
+    height: 100%;
+}
+.nav{
+    font-size: 24px;
+    color: rgb(200, 200, 200);
+    letter-spacing: 1.8px;
+    cursor: pointer;
+    height: 100%;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    font-family: 'font1';
+}
+.nav:hover{
+    color: rgb(255, 255, 255);
+    background: url('/src/assets/claw.webp');
+    background-size: 80%;
+    background-position: center;
+}
+.member{
+    color: white;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+}
+.icon{
+    font-size: 48px;
+}
+
+@media screen and (max-width: 1200px) {
+    .logo span{
+        font-size: 26px;
+    }
+    .nav{
+        font-size: 20px;
+        width: 110px;
+    }
+}
+@media screen and (max-width: 1024px)  {
+    .icons{
+        display: flex;
+    }
+    .icon{
+        font-size: 36px;
+    }
+    .burger{
+        color: white;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .container{
+        padding: 0 15px;
+    }
+    .logo{
+        height: 60px;
+    }
+    .logo span{
+        font-size: 22px;
+    }
+    .icon{
+        font-size: 30px;
+    }
+}

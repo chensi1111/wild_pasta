@@ -1,0 +1,88 @@
+.container{
+    height: 250px;
+    background-color: black;
+    color: white;
+    padding: 50px 100px;
+}
+.title{
+    font-family: 'font1';
+    font-size: 36px;
+    width: 50%;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.infos{
+    display: flex;
+}
+.contents{
+    width: 50%;
+}
+.content{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px
+}
+.content a{
+    color: white;
+}
+.subTitle{
+    font-size: 18px;
+    width: 80px;
+    margin-right: 20px;
+}
+.contacts{
+    width: 50%;
+    padding-left: 50px;
+}
+.icons{
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+}
+.icon{
+    margin-right: 15px;
+    cursor: pointer;
+}
+@media screen and (max-width: 1024px){
+    .container{
+        height: 300px;
+        padding: 50px 100px 100px;
+    }
+    .contents{
+        width: 60%;
+    }
+    .contacts{
+        width: 40%;
+    }
+}
+@media screen and (max-width: 768px){
+    .infos{
+        flex-direction: column;
+    }
+    .container{
+        padding: 30px 30px 100px;
+    }
+    .contents,.contacts,.title{
+        width: 100%;
+    }
+    .contacts{
+        padding-left: 0;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .subTitle{
+        font-size: 16px;
+    }
+    .info{
+        font-size: 14px;
+    }
+    .icons{
+        margin-top: 0
+    }
+    .icon{
+        width: 28px;
+        height: 28px;
+    }
+}

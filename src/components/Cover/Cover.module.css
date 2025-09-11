@@ -1,0 +1,6 @@
+.cover{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(100, 100, 100, 0.5);
+}

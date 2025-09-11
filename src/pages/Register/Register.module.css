@@ -1,0 +1,165 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.container {
+  width: 600px;
+  height: fit-content;
+  background-color: rgba(200, 200, 200, 0.8);
+  border-radius: 20px;
+  border: 2px solid white;
+  padding: 50px 70px;
+}
+.title {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}
+.inputContainer {
+  margin-bottom: 20px;
+}
+.inputBox {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.inputTitle {
+  margin-bottom: 5px;
+  font-size: 18px;
+  user-select: none;
+}
+.input {
+  height: 45px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0 45px;
+  font-size: 16px;
+  border: 2px solid;
+  border-color: black;
+}
+.input.wrong {
+  border-color: red !important;
+}
+.icon {
+  position: absolute;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.eye {
+  position: absolute;
+  right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  border-radius: 10px;
+  background-color: rgb(130, 130, 130);
+  cursor: not-allowed;
+  color: white;
+  margin-top: 50px;
+  user-select: none;
+}
+.button.access {
+  cursor: pointer;
+  background-color: rgb(27, 35, 44);
+}
+.warn {
+  font-size: 14px;
+  color: rgb(180, 0, 0);
+}
+.verifyChecks {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 20px;
+  user-select: none;
+}
+.verifyCheck {
+  display: flex;
+  margin-right: 10px;
+  gap: 2px;
+  color: rgb(0, 100, 0);
+}
+.verifyCheck span {
+  display: flex;
+  align-items: center;
+}
+.verifyCheck.valid {
+  color: rgb(180, 0, 0);
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 350px;
+    padding: 30px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .inputContainer {
+    margin-bottom: 15px;
+  }
+  .inputTitle {
+    font-size: 16px;
+  }
+  .input {
+    height: 35px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .icon,
+  .eye {
+    font-size: 18px;
+  }
+  .button {
+    height: 35px;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  .warn {
+    font-size: 12px;
+  }
+  .verifyChecks {
+    font-size: 12px;
+    margin-left: 15px;
+  }
+}
+@media screen and (max-width: 412px) {
+  .container {
+    width: 300px;
+    padding: 15px;
+  }
+  .title {
+    font-size: 22px;
+  }
+  .inputContainer {
+    margin-bottom: 10px;
+  }
+  .inputTitle {
+    font-size: 14px;
+  }
+  .input {
+    height: 28px;
+    font-size: 12px;
+  }
+  .icon,
+  .eye {
+    font-size: 16px;
+  }
+  .button {
+    height: 28px;
+  }
+}

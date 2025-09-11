@@ -1,0 +1,125 @@
+.firstContainer,
+.secContainer {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.firstContainer .leftContainer,
+.firstContainer .rightContainer {
+  width: 50%;
+  height: 600px;
+}
+.secContainer .leftContainer,
+.secContainer .rightContainer {
+  width: 50%;
+  height: 600px;
+}
+.infos {
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  transform: translate(50%,-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+}
+.secContainer .leftContainer {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0)),
+    url(../../assets/about3.webp);
+  background-size: cover;
+  background-position: center;
+}
+.secContainer .rightContainer {
+  background: url(../../assets/about4.webp);
+  background-size: cover;
+  background-position: left;
+}
+.firstContainer .leftContainer {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)),
+    url(../../assets/about1.webp);
+  background-size: cover;
+  background-position: left;
+}
+.firstContainer .rightContainer {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0)),
+    url(../../assets/about2.webp);
+  background-size: cover;
+  background-position: left;
+}
+.title {
+  color: rgb(255, 187, 0);
+  font-size: 60px;
+  font-family: "slogan";
+  margin-bottom: 10px;
+}
+.subTitle {
+  color: white;
+  font-size: 30px;
+  font-family: "font1";
+  margin-bottom: 20px;
+}
+.content {
+  font-size: 18px;
+  color: rgb(200, 200, 200);
+  line-height: 30px;
+}
+@media screen and (max-width: 1024px) {
+  .firstContainer,
+  .secContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .firstContainer .rightContainer,
+  .secContainer .rightContainer {
+    display: none;
+  }
+  .firstContainer .leftContainer,
+  .secContainer .leftContainer {
+    width: 100%;
+  }
+  .subTitle {
+    font-size: 24px;
+  }
+  .content {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 48px;
+  }
+  .info {
+    font-size: 18px;
+  }
+  .content {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .subTitle {
+    font-size: 20px;
+  }
+  .firstContainer .leftContainer,
+  .secContainer .leftContainer {
+    height: 500px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .title {
+    font-size: 36px;
+  }
+  .info {
+    font-size: 16px;
+  }
+  .content {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .subTitle {
+    font-size: 18px;
+  }
+  .firstContainer .leftContainer,
+  .secContainer .leftContainer {
+    height: 400px;
+  }
+}
