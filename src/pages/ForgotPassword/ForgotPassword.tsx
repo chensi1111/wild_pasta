@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import style from "./ForgotPassword.module.css";
 import { MdOutlinePersonOutline, MdLock } from "react-icons/md";
+import { FaSpinner } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import axios from "../../api/axios.ts";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ function ForgotPassword() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [warnMsg, setWarnMsg] = useState("");
   const [warnType, setWarnType] = useState("");
+  const [loading, setLoading] = useState(false)
   const sendVerify = () => {
     if (!account || verifyStatus) return;
     setVerifyStatus(true);
@@ -50,6 +52,7 @@ function ForgotPassword() {
   };
   const handleVerify = () => {
     if (!account  || !verify) return;
+    setLoading(true)
     axios
       .post("/api/user/verify-forgot-password", {
         account,
@@ -69,6 +72,9 @@ function ForgotPassword() {
         }else{
           setWarnType("verify");
         }
+      })
+      .finally(()=>{
+        setLoading(false)
       });
   };
   useEffect(() => {
@@ -133,15 +139,8 @@ function ForgotPassword() {
           </div>
         </div>
         <div className={classNames(style.warn)}>{warnMsg}</div>
-        <div
-          className={classNames(
-            style.button,
-            account.length && verify.length && style.access
-          )}
-          onClick={() => handleVerify()}
-        >
-          確認
-        </div>
+        {!loading && <div className={classNames(style.button,account.length && verify.length && style.access)}onClick={() => handleVerify()}>確認</div>}
+        {loading && <div className={classNames(style.button,style.access)}><div className={style.spin}><FaSpinner/></div></div>}
       </div>
     </div>
   );

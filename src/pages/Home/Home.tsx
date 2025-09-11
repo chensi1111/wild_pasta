@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import fire from '../../assets/fireVideo.mp4'
 import claw from '../../assets/claw.webp'
+import pasta from '../../assets/pasta.mp4'
 function Home() {
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const [isHover1,setIsHover1] = useState(false)
@@ -39,7 +40,7 @@ function Home() {
           <motion.div initial={{ x: "-150px", opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.videoContent}>在這裡，料理不是被製造，而是被狩獵出來的。<br/>我們用雙手揉麵、用烈火烹煮，<br/>讓每一口義大利麵都保有原始的力量與風味的本能。<br/></motion.div>
           <motion.div initial={{ y: "-100px", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.videoLastWord}>這不是料理，是一場野狼的盛宴</motion.div>
         </div>
-        <video src="/src/assets/pasta.mp4" autoPlay muted loop/>
+        <video src={pasta} autoPlay muted loop/>
       </div>
       <div className={style.infoContainer}>
         <motion.div initial={{ x: "200px", opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.infoTitle}>Wild Origin</motion.div>

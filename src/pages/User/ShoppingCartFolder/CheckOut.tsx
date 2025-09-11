@@ -7,6 +7,7 @@ import { useState,useEffect } from 'react';
 import axios from '../../../api/axios';
 import { setOrderInfo,cleanProduct,useDiscount } from '../../../store/shoppingSlice';
 import { MdOutlineArrowBack } from "react-icons/md";
+import { FaSpinner } from "react-icons/fa";
 import { toast } from 'react-toastify';
 interface timeSlot {
   start:string,
@@ -34,7 +35,10 @@ function CheckOut() {
   const [timeList,setTimeList] = useState<timeSlot[]>([])
   const [date,setDate] = useState("")
   const [error,setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [timeSlotLoading, setTimeSlotLoading] = useState(false)
   const getTimeSlot = ()=>{
+    setTimeSlotLoading(true)
     axios.post('/api/takeout/time', { count })
     .then((res) => {
         console.log(res.data);
@@ -46,6 +50,9 @@ function CheckOut() {
     .catch(error => {
         console.error('Error fetching time slots:', error);
      })
+    .finally(()=>{
+      setTimeSlotLoading(false)
+    })
   }
   const setTimeSlot = (timeSlot: timeSlot) => {
     const formatTimeSlot = {
@@ -93,6 +100,7 @@ function CheckOut() {
     const list = shoppingStore.productList.map(item => `${item.id}_${item.count}`).join(',');
     const price = shoppingStore.total
     const discount = shoppingStore.discount
+    setLoading(true)
     axios.post('/api/takeout/order',{
       userId:memberStore.userInfo.userId,
       name,
@@ -121,7 +129,10 @@ function CheckOut() {
     .catch(error => {
         console.error('Order failed:', error);
         setError(error.response.data.msg)
-     })
+    })
+    .finally(()=>{
+      setLoading(false)
+    })
   }
   useEffect(()=>{
     getTimeSlot()
@@ -160,7 +171,8 @@ function CheckOut() {
             <div className={style.errorMsg}>目前取餐時間皆已滿</div>            
             }
           </div>
-          <div className={style.refresh} onClick={()=>getTimeSlot()}>更新取餐時間</div>
+          {!timeSlotLoading && <div className={style.refresh} onClick={()=>getTimeSlot()}>更新取餐時間</div>}
+          {timeSlotLoading && <div className={style.refresh}><div className={style.spin}><FaSpinner/></div></div>}
           {/* <div className={style.infoInputTitle}>付款資訊</div> */}
         </div>
       </div>
@@ -180,7 +192,9 @@ function CheckOut() {
         <div className={classNames(style.detailSubTitle,style.bold)}>總計<span className={style.price}>$ {(shoppingStore.total)-(shoppingStore.discount)}</span></div>
         {memberStore.login && <div className={style.detailSubTitle}>本次新增點數<span className={style.price}> {getPoint((shoppingStore.total)-(shoppingStore.discount))} P</span></div>}
         <div className={style.detailSubTitle}>取餐時間<span className={style.price}>{time?.end}</span></div>
-        <div className={style.confirm} onClick={()=>order()}>下單購買</div>
+        {
+        !loading && <div className={style.confirm} onClick={()=>order()}>下單購買</div>}
+        {loading && <div className={style.confirm}><div className={style.spin}><FaSpinner/></div></div>}
         <div className={style.errorMsg}>{error}</div>
       </div>
     </div>;

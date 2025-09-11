@@ -2,6 +2,7 @@ import classNames from "classnames";
 import style from './Register.module.css';
 import { MdOutlinePersonOutline,MdLock,MdMailOutline,MdPerson,MdCheckBox,MdCheckBoxOutlineBlank } from "react-icons/md";
 import { LuEye,LuEyeClosed } from "react-icons/lu";
+import { FaSpinner } from "react-icons/fa";
 import { useState,useEffect } from 'react';
 import axios from '../../api/axios.ts'
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +24,7 @@ function Register() {
   const [accountValidLength,setAccountValidLength] = useState(false)
   const [accountValidChars,setAccountValidChars] = useState(false)
   const [emailValidFormat,setEmailValidFormat] = useState(false)
+  const [loading, setLoading] = useState(false)
   const toggleEyeOpen = () => {
     setEyeOpen(prev => !prev);
   };
@@ -80,6 +82,7 @@ function Register() {
       setWarnType("password")
       return
     }
+    setLoading(true)
     axios.post('/api/user/register', {
       name,
       email,
@@ -97,6 +100,9 @@ function Register() {
     .catch(error => {
       console.error('Register failed:', error);
       setWarnMsg(error.response.data.msg)
+    })
+    .finally(()=>{
+      setLoading(false)
     });
   }
   useEffect(()=>{
@@ -168,7 +174,8 @@ function Register() {
         </div>
       </div>
       <div className={classNames(style.warn)}>{warnMsg}</div>
-      <div onClick={()=>handleRegister()} className={classNames(style.button,name.length && email.length && account.length && password.length && passwordCheck.length && style.access)}>註冊</div>
+      {!loading && <div onClick={()=>handleRegister()} className={classNames(style.button,name.length && email.length && account.length && password.length && passwordCheck.length && style.access)}>註冊</div>}
+      {loading && <div className={classNames(style.button,style.access)}><div className={style.spin}><FaSpinner/></div></div>}
     </div>
     </div>;
   }

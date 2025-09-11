@@ -29,6 +29,9 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 35px;
 }
 .back:hover {
   background-color: rgb(200, 200, 200);
@@ -132,6 +135,7 @@
   cursor: pointer;
   border-radius: 5px;
   margin: 20px 0;
+  height: 45px;
 }
 .confirm:hover {
   background-color: rgb(200, 0, 0);
@@ -149,6 +153,9 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 35px;
 }
 .refresh:hover {
   background-color: rgb(200, 200, 200);
@@ -160,6 +167,19 @@
 .remarkNotice {
   font-size: 12px;
   margin-left: 5px;
+}
+.spin {
+  display: inline-block;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @media screen and (max-width: 900px) {
   .container {
@@ -190,12 +210,14 @@
   }
   .confirm {
     padding: 8px 10px;
+    height: 40px;
   }
   .productContainer,
   .detailSubTitle {
     font-size: 14px;
   }
-    .refresh,.back {
+  .refresh,
+  .back {
     padding: 5px 10px;
     font-size: 14px;
   }
@@ -218,7 +240,7 @@
   }
 }
 @media screen and (max-width: 414px) {
-   .infoInputTitle,
+  .infoInputTitle,
   .detailTitle {
     font-size: 14px;
   }
@@ -226,7 +248,11 @@
   .detailSubTitle {
     font-size: 12px;
   }
-  .confirm{
+  .back,.refresh{
     font-size: 12px;
+  }
+  .confirm {
+    font-size: 12px;
+    height: 35px;
   }
 }

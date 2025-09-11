@@ -1,6 +1,7 @@
 import style from './Contact.module.css'
 import { MdLocalPhone } from "react-icons/md";
 import { FaClock,FaLocationDot  } from "react-icons/fa6";
+import { FaSpinner } from "react-icons/fa";
 import { useState } from 'react';
 import axios from '../../api/axios'
 import { toast } from "react-toastify";
@@ -10,6 +11,7 @@ function Contact() {
   const [email,setEmail] = useState("")
   const [msg,setMsg] = useState("")
   const [error,setError] = useState("")
+  const [loading, setLoading] = useState(false)
   const sendMsg = () =>{
     if(!name||!phone||!email||!msg){
       setError("請填寫完整資訊")
@@ -29,6 +31,7 @@ function Contact() {
        setError('訊息過長');
       return
      }
+     setLoading(true)
       axios.post('/api/user/contact', {name,phone,email,msg})
     .then(response => {
       console.log(response.data);
@@ -44,6 +47,9 @@ function Contact() {
     .catch(error => {
       console.error('Logout failed:', error);
       setError(error.response.data.msg)
+    })
+    .finally(()=>{
+      setLoading(false)
     });
   }
 
@@ -98,7 +104,8 @@ function Contact() {
           <textarea value={msg} onChange={(e) =>setMsg(e.target.value)} maxLength={100}></textarea>
           <div className={style.limit}>{msg.length} / 100</div>
         </div>
-        <div className={style.button} onClick={()=>sendMsg()}>送出</div>
+        {!loading && <div className={style.button} onClick={()=>sendMsg()}>送出</div>}
+        {loading && <div className={style.button} onClick={()=>sendMsg()}><div className={style.spin}><FaSpinner/></div></div>}
         {error && <div className={style.error}>{error}</div>}
       </div>
     </div>

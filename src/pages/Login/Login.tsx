@@ -2,6 +2,7 @@ import classNames from "classnames";
 import style from './Login.module.css';
 import { MdOutlinePersonOutline,MdLock } from "react-icons/md";
 import { LuEye,LuEyeClosed } from "react-icons/lu";
+import { FaSpinner } from "react-icons/fa";
 import { useState } from 'react';
 import axios from '../../api/axios.ts'
 import { useDispatch } from 'react-redux';
@@ -17,6 +18,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [warnMsg, setWarnMsg] = useState("");
   const [warnType, setWarnType] = useState("");
+  const [loading, setLoading] =useState(false)
   const toggleEyeOpen = () => {
     setEyeOpen(prev => !prev);
   };
@@ -34,6 +36,7 @@ function Login() {
       setWarnType("password")
       return;
     }
+    setLoading(true)
     axios.post('/api/user/login', {
       account,
       password
@@ -55,14 +58,14 @@ function Login() {
         // 跳轉回登入前的頁面
         const redirect = new URLSearchParams(location.search).get('redirect') || '/';
         navigate(redirect); 
-      }else{
-        console.log('Login failed:',response.data)
-        setWarnMsg(response.data.msg)
       }
     })
     .catch(error => {
       console.error('Login failed:', error);
       setWarnMsg(error.response.data.msg)
+    })
+    .finally(()=>{
+      setLoading(false)
     });
 
   }
@@ -86,7 +89,8 @@ function Login() {
         </div>
       </div>
       <div className={classNames(style.warn)}>{warnMsg}</div>
-      <div onClick={()=>handleLogin()} className={classNames(style.button,account.length && password.length && style.access)}>登入</div>
+      {!loading && <div onClick={()=>handleLogin()} className={classNames(style.button,account.length && password.length && style.access)}>登入</div>}
+      {loading && <div className={classNames(style.button,style.access)}><div className={style.spin}><FaSpinner/></div></div>}
       <div className={style.functions}>
         <div className={style.function} onClick={()=>navigate('/register')}>註冊帳號</div>
         <div className={style.function} onClick={()=>navigate('/forgot-password')}>忘記密碼</div>

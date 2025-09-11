@@ -6,6 +6,7 @@ import axios from "../../api/axios.ts";
 import { useNavigate,useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { LuEye,LuEyeClosed } from "react-icons/lu";
+import { FaSpinner } from "react-icons/fa";
 function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +18,7 @@ function ResetPassword() {
   const [eyeOpen, setEyeOpen] = useState(false);
   const [confirmEyeOpen, setConfirmEyeOpen] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loading, setLoading] =useState(false)
   const toggleEyeOpen = () => {
     setEyeOpen(prev => !prev);
   };
@@ -30,6 +32,7 @@ function ResetPassword() {
       setWarnType("password");
       return;
     }
+    setLoading(true)
     axios.post("/api/user/reset-forgot-password", {token,password})
       .then((response) => {
         if (response.data.code === "000") {
@@ -46,6 +49,9 @@ function ResetPassword() {
           toast.error(error.response.data.msg);
           navigate('/forgot-password')
         }
+      })
+      .finally(()=>{
+        setLoading(false)
       });
 }
  
@@ -94,15 +100,8 @@ function ResetPassword() {
           </div>
         </div>
         <div className={classNames(style.warn)}>{warnMsg}</div>
-        <div
-          className={classNames(
-            style.button,
-            password.length && passwordConfirm.length && style.access
-          )}
-          onClick={() => handleReset()}
-        >
-          確認
-        </div>
+        {!loading && <div className={classNames(style.button,password.length && passwordConfirm.length && style.access)}onClick={() => handleReset()}>確認</div>}
+        {loading && <div className={classNames(style.button,style.access)}><div className={style.spin}><FaSpinner/></div></div>}
       </div>
     </div>
   );

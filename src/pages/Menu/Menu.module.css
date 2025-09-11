@@ -56,7 +56,7 @@
 .page {
   width: 420px;
   height: 520px;
-  background: url("../../assets/paper.wecover.webp");
+  background: url("../../assets/paper.webp");
   position: absolute;
   margin-top: 15px;
   border-radius: 0 15px 15px 0;
@@ -156,7 +156,7 @@
 .singlePage {
   width: 420px;
   height: 520px;
-  background: url("../../assets/paper.wecover.webp");
+  background: url("../../assets/paper.webp");
   margin-bottom: 15px;
   padding: 30px 20px;
   position: relative;
