@@ -2,7 +2,7 @@
     height: 250px;
     background-color: black;
     color: white;
-    padding: 50px 100px;
+    padding: 40px 100px;
 }
 .title{
     font-family: 'font1';
@@ -44,10 +44,20 @@
     margin-right: 15px;
     cursor: pointer;
 }
+.links{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.link{
+    font-size: 14px;
+    cursor: pointer;
+    width: fit-content;
+}
 @media screen and (max-width: 1024px){
     .container{
-        height: 300px;
-        padding: 50px 100px 100px;
+        height: 320px;
+        padding: 40px 100px 100px;
     }
     .contents{
         width: 60%;
@@ -84,5 +94,8 @@
     .icon{
         width: 28px;
         height: 28px;
+    }
+    .link{
+        font-size: 12px;
     }
 }

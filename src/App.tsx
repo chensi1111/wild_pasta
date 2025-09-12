@@ -33,6 +33,8 @@ import Complete from "./pages/User/ShoppingCartFolder/Complete";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import CancelByEmail from "./pages/CancelByEmail/CancelByEmail";
+import Privacy from "./pages/Privacy/Privacy";
+import Term from "./pages/Term/Term";
 function App() {
   const dispatch = useDispatch();
 
@@ -80,6 +82,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/cancel-order" element={<CancelByEmail />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/term" element={<Term />} />
           <Route
             path="/user/reserveList"
             element={
