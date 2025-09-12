@@ -10,6 +10,9 @@
   position: relative;
   padding-bottom: 50px;
 }
+.tableContainer {
+  overflow-x: auto;
+}
 .payContainer {
   width: 30%;
   border-left: 2px solid gray;
@@ -125,11 +128,11 @@
   border-bottom: 2px solid black;
   margin-bottom: 20px;
 }
-.notice{
+.notice {
   font-size: 14px;
   cursor: pointer;
 }
-.notice:hover{
+.notice:hover {
   text-decoration: underline;
 }
 .payList {
@@ -156,6 +159,7 @@
 }
 .checkout.disable {
   cursor: not-allowed;
+  background-color: rgb(130, 130, 130);
 }
 .payContainer input {
   width: 100%;
@@ -168,21 +172,6 @@
   font-size: 12px;
   margin-top: 5px;
   padding-left: 5px;
-}
-.discountButton {
-  padding: 10px 15px;
-  background-color: rgb(130, 130, 130);
-  color: white;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin: 20px 0;
-}
-.discountButton:hover {
-  background-color: rgb(150, 150, 150);
 }
 .error {
   font-size: 12px;
@@ -236,8 +225,7 @@
     padding: 5px 10px;
     font-size: 14px;
   }
-  .checkout,
-  .discountButton {
+  .checkout {
     padding: 8px 10px;
   }
   .payContainer input {
@@ -247,7 +235,6 @@
 }
 @media screen and (max-width: 600px) {
   .infoContainer {
-    overflow-x: auto;
     padding-bottom: 60px;
   }
   .table {
@@ -277,8 +264,7 @@
   .countNumber {
     font-size: 16px;
   }
-  .checkout,
-  .discountButton {
+  .checkout {
     font-size: 12px;
   }
   .payTitle {

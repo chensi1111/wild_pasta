@@ -58,7 +58,8 @@ function ShoppingInfo() {
   return (
     <div className={style.container}>
       <div className={style.infoContainer}>
-        <table className={style.table}>
+        <div className={style.tableContainer}>
+          <table className={style.table}>
           <colgroup>
             <col style={{ width: "50%" }} />
             <col style={{ width: "14%" }} />
@@ -96,6 +97,7 @@ function ShoppingInfo() {
             ))}
           </tbody>
         </table>
+        </div>
         {!shoppingStore.productList.length &&<div className={style.empty}><span onClick={()=>navigate('/take-out')}>購物車為空，點我前往選購</span></div>}
         <div className={style.buttons}>
           <div className={style.infoButton} onClick={()=>navigate('/take-out')}><MdOutlineArrowBack/><span>繼續選購</span></div>
@@ -123,7 +125,8 @@ function ShoppingInfo() {
           <div className={style.payTitle}>會員點數</div>
           <input type="text" placeholder="點數折抵" value={point === 0 ? "" : point}  onChange={(e) => handleSetPoint((e.target.value))}/>
           <div className={style.discount}>尚有 {memberStore.userInfo.point} 點會員點數</div>
-          <div className={style.discountButton} onClick={()=>handleDiscount()}>使用點數</div>
+          <div className={classNames(style.checkout,point == 0 && style.disable)} onClick={()=>handleDiscount()}>使用點數</div>
+          <div className={classNames(style.checkout,shoppingStore.discount == 0 && style.disable)} onClick={()=>dispatch(useDiscount(0))}>取消使用</div>
           {error && <div className={style.error}>{error}</div>}
         </div>}
       </div>

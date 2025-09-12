@@ -1,20 +1,11 @@
 import style from './Home.module.css';
 import { MdExpandMore } from 'react-icons/md';
 import classNames from 'classnames';
-import { useRef,useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRef} from 'react';
 import { motion } from "framer-motion";
-import fire from '../../assets/fireVideo.mp4'
-import claw from '../../assets/claw.webp'
 import pasta from '../../assets/pasta.mp4'
 function Home() {
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const [isHover1,setIsHover1] = useState(false)
-  const [isHover2,setIsHover2] = useState(false)
-  const navigate = useNavigate()
-  const handleNavigate = (path:string)=>{{
-    navigate(path)
-  }}
 
   const scrollToVideo = () => {
     const element = videoContainerRef.current;
@@ -40,7 +31,7 @@ function Home() {
           <motion.div initial={{ x: "-150px", opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.videoContent}>在這裡，料理不是被製造，而是被狩獵出來的。<br/>我們用雙手揉麵、用烈火烹煮，<br/>讓每一口義大利麵都保有原始的力量與風味的本能。<br/></motion.div>
           <motion.div initial={{ y: "-100px", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.videoLastWord}>這不是料理，是一場野狼的盛宴</motion.div>
         </div>
-        <video src={pasta} autoPlay muted loop/>
+        <video src={pasta} autoPlay muted loop playsInline />
       </div>
       <div className={style.infoContainer}>
         <motion.div initial={{ x: "200px", opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.infoTitle}>Wild Origin</motion.div>
@@ -67,24 +58,6 @@ function Home() {
             </motion.div>
           </div>
         </div>
-      <div className={style.boxContainer}>
-        <div className={style.box} onMouseEnter={() => setIsHover1(true)} onMouseLeave={() => setIsHover1(false)} onClick={()=>handleNavigate('/take-out')}>
-          <div className={style.boxTitleContainer}>
-            <video src={fire} loop muted autoPlay></video>
-            <div className={style.boxTitle}>TakeOut</div>
-          </div>
-          <div className={style.boxText}>我要外帶</div>
-          <div className={classNames(style.claw,isHover1 && style.show)}><img src={claw} /></div>
-        </div>
-        <div className={style.box} onMouseEnter={() => setIsHover2(true)} onMouseLeave={() => setIsHover2(false)} onClick={()=>handleNavigate('/reserve')}>
-          <div className={style.boxTitleContainer}>
-            <video src={fire} loop muted autoPlay></video>
-            <div className={style.boxTitle}>Reserve</div>
-          </div>
-          <div className={style.boxText}>立即訂位</div>
-          <div className={classNames(style.claw,isHover2 && style.show)}><img src={claw} /></div>
-        </div>
-      </div>
     </div>
   }
   

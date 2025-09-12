@@ -288,7 +288,8 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
         {activeTab === "takeOut" && <div className={style.notice}>注意:取餐時間前90分鐘無法取消</div>}
         <div className={style.orderContainer}>
           {activeTab === "reservation" && reservationData.length > 0 && (
-            <table className={style.table}>
+            <div className={style.tableContainer}>
+              <table className={style.table}>
               <colgroup>
                 <col style={{ width: "24%" }} />
                 <col style={{ width: "24%" }} />
@@ -338,9 +339,11 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
                 )))}
               </tbody>
             </table>
+            </div>
           )}
           {activeTab === "takeOut" && takeOutData.length > 0 && (
-            <table className={style.table}>
+            <div className={style.tableContainer}>
+              <table className={style.table}>
               <colgroup>
                 <col style={{ width: "24%" }} />
                 <col style={{ width: "24%" }} />
@@ -390,13 +393,15 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
                 )))}
               </tbody>
             </table>
+            </div>
           )}
           <div className={style.pagination}>
             <Pagination count={totalPages} page={page} onChange={(_, val) => setPage(val)} siblingCount={0} boundaryCount={1} sx={{ul: {whiteSpace: 'nowrap', display: 'flex', flexWrap: 'nowrap', justifyContent: 'center' }}}/>
           </div>
         </div>
         {reservationDetail &&
-         <div className={style.orderDetail}>
+        <div className={style.transparentBox} onClick={()=>setReservationDetail(null)}>
+          <div className={style.orderDetail} onClick={(e) => e.stopPropagation()}>
             <div className={style.detailTitle}>訂單詳情</div>
             <div className={style.detailInfo}><span>訂單編號 :</span>{reservationDetail.ord_number}</div>
             <div className={style.detailInfo}><span>訂單時間 :</span>{formatDate(reservationDetail.ord_time)}</div>
@@ -407,13 +412,23 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
             <div className={style.detailInfo}><span>主題 :</span>{themeMap[reservationDetail.theme]}</div>
             <div className={style.detailInfo}><span>連絡電話 :</span>{reservationDetail.phone_number}</div>
             <div className={style.detailInfo}><span>Email :</span>{reservationDetail.email}</div>
-            {reservationDetail.food_allergy && <div className={style.detailInfo}><span>過敏食物 :</span>{reservationDetail.food_allergy}</div>}
-            {reservationDetail.remark && <div className={style.detailInfo}><span>備註 :</span><div className={style.content}>{reservationDetail.remark}</div></div>}
-            <div className={style.detailInfo}><span>訂單狀態 :</span><div className={style.content}>{getOrderStatus(formatOnlyDate(reservationDetail.date),(reservationDetail.time).slice(0,5))}</div></div>
+            {reservationDetail.food_allergy && <div className={style.remarks}>
+                <div className={style.detailInfo}>過敏食物 : </div>
+                <div className={style.remark}>{reservationDetail.food_allergy} </div>
+            </div>
+            }
+            {reservationDetail.remark && <div className={style.remarks}>
+                <div className={style.detailInfo}>備註 : </div>
+                <div className={style.remark}>{reservationDetail.remark} </div>
+            </div>}
+            <div className={style.detailInfo}><span>訂單狀態 :</span><div>{getOrderStatus(formatOnlyDate(reservationDetail.date),(reservationDetail.time).slice(0,5))}</div></div>
             <div className={style.close} onClick={()=>setReservationDetail(null)}>關 閉</div>
-        </div>}
+        </div>
+        </div>
+         }
         {takeOutDetail &&
-         <div className={style.orderDetail}>
+        <div className={style.transparentBox} onClick={()=>setTakeOutDetail(null)}>
+          <div className={style.orderDetail} onClick={(e) => e.stopPropagation()}>
             <div className={style.detailTitle}>訂單詳情</div>
             <div className={style.detailInfo}>
               <div className={style.infoTitle}>訂單編號 :</div>
@@ -467,7 +482,9 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
             <div className={style.contact}><MdOutlineLocalPhone/>{takeOutDetail.phone_number}</div>
             <div className={style.contact}><MdOutlineEmail/>{takeOutDetail.email}</div>
             <div className={style.close} onClick={()=>setTakeOutDetail(null)}>關 閉</div>
-        </div>}
+        </div>
+        </div>
+         }
       </div>
     </div>
   );

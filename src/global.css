@@ -1,33 +1,41 @@
 @font-face {
-    font-family: 'font1';
-    src: url('/font/font1.ttf') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: "font1";
+  src: url("/font/font1.ttf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 @font-face {
-    font-family: 'slogan';
-    src: url('/font/slogan.ttf') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: "slogan";
+  src: url("/font/slogan.ttf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 @font-face {
-    font-family: 'slogan2';
-    src: url('/font/slogan2.ttf') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: "slogan2";
+  src: url("/font/slogan2.ttf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  html, body {
-    height: 100%;
-    font-family:sans-serif;
-    background-color: rgb(27,35,44);
-  }
-  .app{
-    padding-top: 80px;
-    min-height: calc(100vh - 250px);
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: sans-serif;
+  background-color: rgb(27, 35, 44);
+}
+.app {
+  padding-top: 80px;
+  min-height: calc(100vh - 250px);
+}
+
+.Toastify__toast {
+  max-width: 300px;
+  border-radius: 6px; 
+  margin-top: 15px;
+}
+

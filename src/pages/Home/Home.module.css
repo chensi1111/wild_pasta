@@ -193,76 +193,6 @@ video {
 .card:last-child .cardContent {
   padding: 20px 17.5% 0;
 }
-.boxContainer {
-  display: flex;
-  margin: 30px 0;
-  gap: 100px;
-  padding: 0 100px;
-  justify-content: center;
-}
-.box {
-  width: 600px;
-  height: 700px;
-  border-radius: 15px;
-  box-shadow: 5px 5px rgb(20, 11, 2);
-  background: url("../../assets/woodTexture.jpg");
-  position: relative;
-  cursor: pointer;
-  transition: 0.5s;
-}
-.box:last-child {
-  background: url("../../assets/woodTexture2.jpg");
-}
-.box:hover {
-  transform: translate(-5px, -5px);
-}
-.boxTitleContainer {
-  width: 100%;
-  height: 150px;
-  position: absolute;
-  top: 50px;
-}
-.boxTitleContainer video {
-  object-fit: cover;
-}
-.boxTitle {
-  font-size: 100px;
-  letter-spacing: 15px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background: rgb(0, 0, 0);
-  color: white;
-  font-family: "font1";
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  mix-blend-mode: overlay;
-}
-.boxText {
-  font-family: "font1";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  word-break: keep-all;
-  color: rgb(68, 41, 30);
-}
-.claw {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  height: 300px;
-  display: none;
-}
-.claw.show {
-  display: block;
-}
 @keyframes zoomOut {
   from {
     background-size: 120%;
@@ -306,24 +236,6 @@ video {
     margin-right: 10px;
     height: 450px;
   }
-  .box {
-    height: 600px;
-  }
-  .boxContainer {
-    gap: 50px;
-    padding: 0 100px;
-  }
-  .boxTitle {
-    font-size: 80px;
-    letter-spacing: 10px;
-  }
-  .boxText {
-    font-size: 36px;
-  }
-  .claw {
-    width: 250px;
-    height: 250px;
-  }
 }
 @media screen and (max-width: 1024px) {
   @keyframes sloganIn {
@@ -363,15 +275,6 @@ video {
   }
   .cardContent {
     padding: 20px 17.5% 0;
-  }
-  .boxContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-  }
-  .box {
-    width: 500px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -451,25 +354,6 @@ video {
   .cardContent {
     font-size: 14px;
   }
-  .box {
-    width: 350px;
-    height: 400px;
-  }
-  .boxTitleContainer {
-    height: 100px;
-    position: absolute;
-    top: 20px;
-  }
-   .boxTitle {
-    font-size: 70px;
-  }
-  .boxText {
-    font-size: 24px;
-  }
-  .claw {
-    width: 150px;
-    height: 150px;
-  }
 }
 @media screen and (max-width: 412px) {
   .first {
@@ -485,9 +369,5 @@ video {
   .cardContent,
   .card:last-child .cardContent {
     padding: 20px 10% 0;
-  }
-    .box {
-    width: 300px;
-    height: 400px;
   }
 }
