@@ -2,10 +2,8 @@ import style from "./Footer.module.css";
 import facebook from '../../assets/facebook.webp'
 import youtube from '../../assets/youtube.webp'
 import instagram from '../../assets/instagram.webp'
-import { useNavigate } from 'react-router-dom';
 
 function Footer() {
-  const navigate = useNavigate()
   return (
     <div className={style.container}>
       <div className={style.title}>Wild Pasta</div>
@@ -34,8 +32,8 @@ function Footer() {
         </div>
       </div>
       <div className={style.links}>
-        <div className={style.link} onClick={()=>navigate("/privacy")}>隱私權政策</div>
-        <div className={style.link} onClick={()=>navigate("/term")}>服務條款</div>
+        <a className={style.link} href="/privacy">隱私權政策</a>
+        <a className={style.link} href="/term">服務條款</a>
       </div>
     </div>
   );
