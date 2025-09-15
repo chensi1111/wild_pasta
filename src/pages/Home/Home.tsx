@@ -1,7 +1,8 @@
 import style from './Home.module.css';
 import { MdExpandMore } from 'react-icons/md';
 import classNames from 'classnames';
-import { useRef} from 'react';
+import { useRef,useEffect} from 'react';
+import axios from '../../api/axios.ts'
 import { motion } from "framer-motion";
 import pasta from '../../assets/pasta.mp4'
 function Home() {
@@ -17,6 +18,9 @@ function Home() {
       });
     }
   };
+  useEffect(()=>{
+    axios.post('/api/system/pin')
+  },[])
     return <div className={style.wrapper}>
       <div className={style.container}>
         <div className={classNames(style.slogan, style.first)}>IN THE FOREST OF FIRE AND FLAVOR<br/>THE WOLF FEASTS</div>

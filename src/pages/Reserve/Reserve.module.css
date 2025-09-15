@@ -160,7 +160,11 @@
   padding: 5px 10px;
   background-color: rgba(255, 187, 0, 0.5);
   border: 2px solid black;
-  width: fit-content;
+  width: 120px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -171,6 +175,19 @@
   color: red;
   font-size: 14px;
   margin-top: 5px;
+}
+.spin {
+  display: inline-block;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @media screen and (max-width: 1200px) {
   .dateContainer {
@@ -211,7 +228,7 @@
     bottom: 10px;
   }
   .info .title {
-    font-size: 22px;
+    font-size: 20px;
   }
   .info .address {
     font-size: 14px;
@@ -220,6 +237,9 @@
     flex-direction: column;
     padding-left: 30px;
     margin-top: 5px;
+  }
+  .reserveTitle {
+    font-size: 20px;
   }
   .remindTitle,
   .remind,
@@ -259,6 +279,7 @@
     margin-top: 30px;
     font-size: 16px;
     padding: 5px 10px;
+    width: 100px;
   }
 }
 @media screen and (max-width: 412px) {

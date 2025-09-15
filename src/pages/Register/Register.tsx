@@ -117,6 +117,9 @@ function Register() {
   useEffect(()=>{
     checkEmail()
   },[email])
+  useEffect(()=>{
+    axios.post('/api/system/pin')
+  },[])
     return <div className={classNames(style.wrapper)}>
     <div onKeyDown={(e) => {if (e.key === "Enter") {handleRegister()}}} className={classNames(style.container)}>
       <div className={classNames(style.title)}>註冊</div>

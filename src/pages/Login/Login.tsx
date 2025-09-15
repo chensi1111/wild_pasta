@@ -3,7 +3,7 @@ import style from './Login.module.css';
 import { MdOutlinePersonOutline,MdLock } from "react-icons/md";
 import { LuEye,LuEyeClosed } from "react-icons/lu";
 import { FaSpinner } from "react-icons/fa";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import axios from '../../api/axios.ts'
 import { useDispatch } from 'react-redux';
 import { setUserInfo,setLoginType } from "../../store/memberSlice";
@@ -67,7 +67,9 @@ function Login() {
     .finally(()=>{
       setLoading(false)
     });
-
+    useEffect(()=>{
+      axios.post('/api/system/pin')
+    },[])
   }
     return <div className={classNames(style.wrapper)}>
     <div onKeyDown={(e) => {if (e.key === "Enter") {handleLogin()}}} className={classNames(style.container)}>

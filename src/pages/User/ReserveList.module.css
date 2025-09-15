@@ -191,7 +191,6 @@
 .loadingContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 334px;
 }
 .loading {
@@ -201,7 +200,6 @@
   font-weight: bold;
   color: #555;
   animation: pulse 1.5s infinite;
-  position: fixed;
 }
 .transparentBox{
   background-color: rgba(128, 128, 128, 0.3);

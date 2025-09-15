@@ -8,6 +8,7 @@ import classNames from "classnames";
 import axios from '../../api/axios.ts'
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 function Reserve() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -24,6 +25,7 @@ function Reserve() {
   const [email, setEmail] = useState(memberStore.userInfo.email || '');
   const [food_allergy, setFoodAllergy] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [loading, setLoading] = useState(false)
   const completeReserve = () => {
     if(reserveStore.info.date === '' || reserveStore.info.time === '' || reserveStore.info.people === 0) {
       setErrorMsg('請先選擇日期、時間和人數');
@@ -44,7 +46,7 @@ function Reserve() {
         email,
         food_allergy,
       }
-      console.log('最終訂位資訊:', finalReserveInfo);
+      setLoading(true)
       axios.post('/api/reserve',finalReserveInfo)
       .then((res) => {
         console.log(res.data);
@@ -57,7 +59,10 @@ function Reserve() {
       .catch(error => {
       console.error('Reserve failed:', error);
       setErrorMsg(error.response.data.msg);
-    });;
+      })
+      .finally(()=>{
+        setLoading(false)
+      });;
     }
   }
   return (
@@ -116,7 +121,8 @@ function Reserve() {
               <div className={style.infoTitle}>過敏備註</div>
               <input type="text" value={food_allergy} onChange={(e) => setFoodAllergy(e.target.value)} placeholder="ex.蝦" maxLength={50}/>
             </div>
-            <div onClick={()=>completeReserve()} className={style.sendReserve}>立即訂位</div>
+            {!loading && <div onClick={()=>completeReserve()} className={style.sendReserve}>立即訂位</div>}
+            {loading && <div className={style.sendReserve}><div className={style.spin}><FaSpinner/></div></div>}
             <div className={style.errorMsg}>{errorMsg}</div>
           </div>
         </div>

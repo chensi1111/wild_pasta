@@ -169,7 +169,7 @@ textarea {
     height: 600px;
     padding: 40px 25px;
   }
-  .close{
+  .close {
     top: 15px;
     left: 15px;
     font-size: 18px;
@@ -179,6 +179,9 @@ textarea {
   }
   .title span {
     font-size: 16px;
+  }
+  .subTitle {
+    font-size: 18px;
   }
   .selectContainer {
     flex-direction: column;
@@ -203,14 +206,15 @@ textarea {
     width: 20px;
     font-size: 18px;
   }
-  .timeItem,.theme {
+  .timeItem,
+  .theme {
     font-size: 14px;
   }
-  .remarkContainer{
+  .remarkContainer {
     flex-direction: column;
     margin-bottom: 15px;
   }
-  .confirm{
+  .confirm {
     font-size: 14px;
   }
   .container::-webkit-scrollbar {
@@ -229,11 +233,14 @@ textarea {
     background-color: transparent;
   }
 }
-@media screen and (max-width: 412px){
-    .container {
+@media screen and (max-width: 412px) {
+  .container {
     width: 330px;
     height: 500px;
     padding: 30px 15px;
     border-radius: 10px;
+  }
+  .subTitle,.title {
+    font-size: 16px;
   }
 }

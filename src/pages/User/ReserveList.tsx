@@ -106,7 +106,7 @@ function ReserveList() {
     setActiveTab("reservation");
     setLoading(true)
     axios
-      .post("/api/user/reserve",{page, pageSize: 10})
+      .post("/api/user/reserve", { page, pageSize: 10 })
       .then((response) => {
         console.log(response.data);
         if (response.data.code === "000") {
@@ -118,8 +118,8 @@ function ReserveList() {
       .catch((error) => {
         console.error("Error fetching reservations:", error);
       })
-      .finally(()=>{
-        setLoading(false)
+      .finally(() => {
+        setLoading(false);
       });
   };
    // 外帶訂單
@@ -270,7 +270,7 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
               style.nav,
               activeTab === "reservation" && style.active
             )}
-            onClick={() => handleGetReservations(page)}
+            onClick={() => handleGetReservations(1)}
           >
             預約訂位
           </div>
@@ -279,7 +279,7 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
               style.nav,
               activeTab === "takeOut" && style.active
             )}
-            onClick={() => handleGetTakeOut(page)}
+            onClick={() => handleGetTakeOut(1)}
           >
             外帶訂單
           </div>
@@ -287,7 +287,7 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
         {activeTab === "reservation" && <div className={style.notice}>注意:預約時間前30分鐘無法取消</div>}
         {activeTab === "takeOut" && <div className={style.notice}>注意:取餐時間前90分鐘無法取消</div>}
         <div className={style.orderContainer}>
-          {activeTab === "reservation" && reservationData.length > 0 && (
+          {activeTab === "reservation" && (
             <div className={style.tableContainer}>
               <table className={style.table}>
               <colgroup>
@@ -309,23 +309,23 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
-                 <tr>
-                   <td colSpan={6}>
-                    <div className={style.loadingContainer}>
-                      <div className={style.loading}>載入中...</div>
-                    </div>
-                   </td>
-                 </tr>
-               ) : reservationData.length === 0 ? (
-                 <tr>
-                   <td colSpan={6}>
-                    <div className={style.loadingContainer}>
-                      <div className={style.empty}></div>目前沒有資料
-                    </div>
-                   </td>
-                 </tr>
-               ) : (
+                {loading && 
+                <tr>
+                  <td colSpan={6}>
+                  <div className={style.loadingContainer}>
+                     <div className={style.loading}>載入中...</div>
+                  </div>
+                  </td>
+                </tr>}
+                {!loading && reservationData.length === 0 &&
+                <tr>
+                  <td colSpan={6}>
+                  <div className={style.loadingContainer}>
+                     <div className={style.empty}>目前沒有資料</div>
+                  </div>
+                  </td>
+                </tr>}
+                {!loading && reservationData.length > 0 &&
                 reservationData.map((item: any) => (
                   <tr key={item.id} onClick={()=>showDetail(item,0)} className={style.row}>
                     <td>{item.ord_number}</td>
@@ -336,12 +336,13 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
                     {cancelAvailable(formatOnlyDate(item.date),item.time.slice(0, 5),-30) && <td className={style.cancel} onClick={(e)=>handleCancel(e,item.ord_number,0)}>X</td>}
                     {!cancelAvailable(formatOnlyDate(item.date),item.time.slice(0, 5),-30) && <td className={style.cancel}></td>}
                   </tr>
-                )))}
+                ))
+                }
               </tbody>
             </table>
             </div>
           )}
-          {activeTab === "takeOut" && takeOutData.length > 0 && (
+          {activeTab === "takeOut" && (
             <div className={style.tableContainer}>
               <table className={style.table}>
               <colgroup>
@@ -363,24 +364,24 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
-                 <tr>
-                   <td colSpan={6}>
-                    <div className={style.loadingContainer}>
-                      <div className={style.loading}>載入中...</div>
-                    </div>
-                   </td>
-                 </tr>
-               ) : takeOutData.length === 0 ? (
-                 <tr>
-                   <td colSpan={6}>
-                    <div className={style.loadingContainer}>
-                      <div className={style.empty}></div>目前沒有資料
-                    </div>
-                   </td>
-                 </tr>
-               ) : (
-                takeOutData.map((item: any) => (
+                {loading && 
+                <tr>
+                  <td colSpan={6}>
+                  <div className={style.loadingContainer}>
+                     <div className={style.loading}>載入中...</div>
+                  </div>
+                  </td>
+                </tr>}
+                {!loading && takeOutData.length === 0 &&
+                <tr>
+                  <td colSpan={6}>
+                  <div className={style.loadingContainer}>
+                     <div className={style.empty}>目前沒有資料</div>
+                  </div>
+                  </td>
+                </tr>}
+                {!loading && takeOutData.length > 0 &&
+                  takeOutData.map((item: any) => (
                   <tr key={item.id} onClick={()=>showDetail(item,1)} className={style.row}>
                     <td>{item.ord_number}</td>
                     <td>{formatDate(item.ord_time)}</td>
@@ -390,7 +391,8 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
                     {cancelAvailable(formatOnlyDate(item.date),item.end_time.slice(0, 5),-90) && <td className={style.cancel} onClick={(e)=>handleCancel(e,item.ord_number,1)}>X</td>}
                     {!cancelAvailable(formatOnlyDate(item.date),item.end_time.slice(0, 5),-90) && <td className={style.cancel}></td>}
                   </tr>
-                )))}
+                ))
+                }
               </tbody>
             </table>
             </div>
