@@ -101,15 +101,11 @@ instance.interceptors.response.use(
           originalRequest.headers = originalRequest.headers ?? {};
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return instance(originalRequest);
-        } else {
-          console.error('Token refresh failed:', response.data.msg);
-          localStorage.removeItem('userInfo');
-          window.location.href = '/login?redirect=' + encodeURIComponent(location.pathname);
-          return Promise.reject(error);
         }
       } catch (err) {
         console.error('Token refresh failed:', err);
         localStorage.removeItem('userInfo');
+        localStorage.setItem("toastMessage", "登入已過期，請重新登入");
         window.location.href = '/login?redirect=' + encodeURIComponent(location.pathname);
         return Promise.reject(err);
       } finally {

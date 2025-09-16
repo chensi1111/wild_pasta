@@ -10,6 +10,10 @@ import { setUserInfo,setLoginType } from "../../store/memberSlice";
 import { setShoppingAccount,initShoppingCart } from "../../store/shoppingSlice.ts";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from "uuid";
+import { UAParser } from 'ua-parser-js';
+const parser = new UAParser();
+const result = parser.getResult();
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,9 +41,17 @@ function Login() {
       return;
     }
     setLoading(true)
+    let deviceId = localStorage.getItem("deviceId");
+    if (!deviceId) {
+      deviceId = uuidv4();
+      localStorage.setItem("deviceId", deviceId);
+    }
+    const deviceName = `${result.os.name} - ${result.browser.name}`; 
     axios.post('/api/user/login', {
       account,
-      password
+      password,
+      deviceId,
+      deviceName
     })
     .then(response => {
       console.log(response.data);
@@ -67,10 +79,18 @@ function Login() {
     .finally(()=>{
       setLoading(false)
     });
-    useEffect(()=>{
+  }
+  useEffect(()=>{
       axios.post('/api/system/pin')
     },[])
-  }
+  useEffect(()=>{
+    const msg = localStorage.getItem("toastMessage");
+     console.log(msg,'9999999999999')
+      if (msg) {
+        toast.error(msg);
+        localStorage.removeItem("toastMessage");
+      }
+  },[])
     return <div className={classNames(style.wrapper)}>
     <div onKeyDown={(e) => {if (e.key === "Enter") {handleLogin()}}} className={classNames(style.container)}>
       <div className={classNames(style.title)}>登入</div>
