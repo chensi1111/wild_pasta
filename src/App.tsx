@@ -35,6 +35,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import CancelByEmail from "./pages/CancelByEmail/CancelByEmail";
 import Privacy from "./pages/Privacy/Privacy";
 import Term from "./pages/Term/Term";
+import Account from "./pages/User/Account";
 function App() {
   const dispatch = useDispatch();
 
@@ -129,6 +130,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Security />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="account"
+              element={
+                <ProtectedRoute>
+                  <Account />
                 </ProtectedRoute>
               }
             />

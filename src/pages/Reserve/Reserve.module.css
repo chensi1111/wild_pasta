@@ -51,6 +51,7 @@
 .dateContainer {
   padding: 50px 0 0 280px;
   display: flex;
+  align-items: center;
 }
 .dateInfos {
   display: flex;
@@ -84,6 +85,7 @@
   font-size: 20px;
   height: fit-content;
   padding: 2px 15px;
+  height: 35px;
   background-color: rgba(255, 187, 0, 0.5);
   border: 2px solid black;
   display: flex;

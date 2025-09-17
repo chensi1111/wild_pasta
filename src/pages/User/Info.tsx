@@ -48,6 +48,16 @@ function Info() {
                 安全設定
                 <MdArrowForwardIos />
               </div>
+              <div
+                className={classNames(
+                  style.sideNav,
+                  activePath === "/user/info/account" && style.active
+                )}
+                onClick={() => navigate("/user/info/account")}
+              >
+                帳號登入
+                <MdArrowForwardIos />
+              </div>
             </div>
           )}
           {width <= 1200 && <div className={style.selectContainer}>
@@ -96,6 +106,16 @@ function Info() {
                   }}
                 >
                   安全設定
+                </MenuItem>
+                <MenuItem
+                  value="/user/info/account"
+                  sx={{
+                    minHeight: "40px",
+                    fontSize: "16px",
+                    padding: "0px 15px",
+                  }}
+                >
+                  帳號登入
                 </MenuItem>
               </Select>
             </FormControl>

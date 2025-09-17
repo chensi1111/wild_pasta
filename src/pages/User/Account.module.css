@@ -1,0 +1,76 @@
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.accounts {
+  background-color: rgba(230, 230, 230, 0.8);
+  padding: 10px 30px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accounts.current {
+  background-color: rgba(215, 215, 215, 0.8);
+}
+.accountTitle {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.accountTitle span {
+  font-size: 12px;
+  color: rgb(180, 0, 0);
+  margin-left: 10px;
+}
+.info {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.button {
+  width: fit-content;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.button:hover {
+  background: white;
+}
+
+@media screen and (max-width: 1024px) {
+  .title {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .accounts {
+    padding: 10px 20px;
+  }
+  .accountTitle {
+    font-size: 14px;
+  }
+  .info {
+    font-size: 12px;
+  }
+  .button {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .accounts {
+    flex-direction: column;
+    padding: 10px ;
+  }
+  .button {
+    margin-top: 10px;
+  }
+  .accountTitle {
+    text-align: center;
+  }
+  .accountTitle span {
+    margin-left: 5px;
+  }
+}
