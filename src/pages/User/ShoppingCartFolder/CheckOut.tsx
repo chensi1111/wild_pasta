@@ -134,6 +134,79 @@ function CheckOut() {
       setLoading(false)
     })
   }
+  const test = () =>{
+    if(!name||!phone||!email){
+      setError('請填寫完整資料')
+      return
+    }
+    if(!time){
+      setError('請選擇取餐時間')
+      return
+    }
+    if(name.length > 20){
+      setError('姓名不得超過20個字元')
+      return
+    }
+    const phoneRegex = /^(09\d{8}|0\d{1,3}-?\d{6,8})$/;
+    if (!phoneRegex.test(phone)) {
+      setError('電話號碼格式錯誤');
+      return
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Email格式錯誤');
+      return
+    }
+    if(remark.length>100){
+      setError('備註不得超過100個字元')
+      return
+    }
+    if(count<1){
+      setError('購物車為空')
+      return
+    }
+    const list = shoppingStore.productList.map(item => `${item.id}_${item.count}`).join(',');
+    const price = shoppingStore.total
+    const discount = shoppingStore.discount
+    setLoading(true)
+    axios.post('/api/takeout/pay',{
+      userId:memberStore.userInfo.userId,
+      name,
+      date,
+      start_time:time?.start,
+      end_time:time?.end,
+      list,
+      count,
+      price,
+      discount,
+      point:getPoint(price),
+      remark,
+      phone_number:phone,
+      email
+    })
+    .then((res) =>{
+      console.log(res.data);
+        if (res.data.code === '000') {
+          console.log(res.data.data)
+          const div = document.createElement('div');
+          div.innerHTML = res.data.data;
+          const form = div.querySelector('form');
+          if (!form) {
+            console.error("沒有找到 form，回傳內容:", res.data.data);
+            return;
+          }        
+          document.body.appendChild(form);
+          form.submit();
+       }
+    })
+    .catch(error => {
+        console.error('Order failed:', error);
+        setError(error.response.data.msg)
+    })
+    .finally(()=>{
+      setLoading(false)
+    })
+  }
   useEffect(()=>{
     getTimeSlot()
   },[])
@@ -192,8 +265,8 @@ function CheckOut() {
         <div className={classNames(style.detailSubTitle,style.bold)}>總計<span className={style.price}>$ {(shoppingStore.total)-(shoppingStore.discount)}</span></div>
         {memberStore.login && <div className={style.detailSubTitle}>本次新增點數<span className={style.price}> {getPoint((shoppingStore.total)-(shoppingStore.discount))} P</span></div>}
         <div className={style.detailSubTitle}>取餐時間<span className={style.price}>{time?.end}</span></div>
-        {
-        !loading && <div className={style.confirm} onClick={()=>order()}>下單購買</div>}
+        {!loading && <div className={style.confirm} onClick={()=>order()}>下單購買</div>}
+        {!loading && <div className={style.confirm} onClick={()=>test()}>綠界測試</div>}
         {loading && <div className={style.confirm}><div className={style.spin}><FaSpinner/></div></div>}
         <div className={style.errorMsg}>{error}</div>
       </div>
