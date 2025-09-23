@@ -1,6 +1,7 @@
 import style from "./ReserveList.module.css";
 import classNames from "classnames";
 import { useState,useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "../../api/axios.ts";
 import Pagination from '@mui/material/Pagination';
 import { ConfirmDialog } from "../../components/ConfirmDialog/confirmDialog.tsx";
@@ -43,7 +44,10 @@ type TakeOut = {
   email: string;
 }
 function ReserveList() {
-  const [activeTab, setActiveTab] = useState("reservation");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type") || "reservation";
+  const [activeTab, setActiveTab] = useState(type);
   const [reservationData, setReservationData] = useState<ReservationDetail[]>([]);
   const [takeOutData, setTakeOutData] = useState<TakeOut[]>([]);
   const [reservationDetail, setReservationDetail] = useState<ReservationDetail|null>(null);
@@ -397,9 +401,9 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
             </table>
             </div>
           )}
-          <div className={style.pagination}>
+          {((activeTab === "takeOut" && takeOutData.length !== 0) ||(activeTab === "reservation" && reservationData.length !== 0)) && <div className={style.pagination}>
             <Pagination count={totalPages} page={page} onChange={(_, val) => setPage(val)} siblingCount={0} boundaryCount={1} sx={{ul: {whiteSpace: 'nowrap', display: 'flex', flexWrap: 'nowrap', justifyContent: 'center' }}}/>
-          </div>
+          </div>}
         </div>
         {reservationDetail &&
         <div className={style.transparentBox} onClick={()=>setReservationDetail(null)}>

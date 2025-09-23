@@ -115,9 +115,9 @@ function Point() {
             </tbody>
             </table>
         </div>
-        <div className={style.pagination}>
+        {pointData.length !== 0 && <div className={style.pagination}>
             <Pagination count={totalPages} page={page} onChange={(_, val) => setPage(val)} siblingCount={0} boundaryCount={1} sx={{ul: {whiteSpace: 'nowrap', display: 'flex', flexWrap: 'nowrap', justifyContent: 'center' }}}/>
-        </div>
+        </div>}
     </div>
 }
 export default Point;

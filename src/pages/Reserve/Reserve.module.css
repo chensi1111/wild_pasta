@@ -239,6 +239,7 @@
     flex-direction: column;
     padding-left: 30px;
     margin-top: 5px;
+    align-items: start;
   }
   .reserveTitle {
     font-size: 20px;

@@ -93,7 +93,7 @@ function Complete() {
   }
   const handleComplete = () =>{
     if(memberStore.login){
-      navigate('/user/reserveList')
+      navigate('/user/reserveList?type=takeout')
     }else{
       navigate('/')
     }

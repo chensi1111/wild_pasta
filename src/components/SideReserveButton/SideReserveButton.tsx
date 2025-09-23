@@ -8,7 +8,7 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 function SideReserveButton() {
   const navigate = useNavigate();
   const location = useLocation();
-  const hiddenPaths = ["/login", "/register", "/user","/forgot-password","/reset-password"];
+  const hiddenPaths = ["/login", "/register", "/user","/forgot-password","/reset-password","/reserve"];
   const toReserve = () => {
     navigate("/reserve");
   };
