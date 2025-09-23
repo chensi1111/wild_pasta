@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   min-height: 500px;
+  position: relative;
 }
 .infoContainer {
   width: 60%;
@@ -172,6 +173,67 @@
   display: inline-block;
   animation: spin 2s linear infinite;
 }
+.alertContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  z-index: 1000;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+.alertTitle {
+  font-weight: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.alertExplain {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.alertInfos {
+  width: 100%;
+  margin: 10px 0 15px;
+  padding: 5px 15px;
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 5px;
+  font-size: 14px;
+}
+.alertInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 15px;
+}
+.alertButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.alertButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+}
+.alertButton:hover {
+  background-color: rgb(255, 255, 255);
+}
 
 @keyframes spin {
   from {
@@ -238,6 +300,20 @@
     padding: 3px 8px;
     font-size: 14px;
   }
+  .alertContainer {
+    width: 350px;
+    height: 250px;
+    padding: 15px;
+  }
+  .alertTitle {
+    margin-bottom: 5px;
+  }
+  .alertExplain {
+    margin-bottom: 3px;
+  }
+  .alertInfo {
+    padding: 3px 10px;
+  }
 }
 @media screen and (max-width: 414px) {
   .infoInputTitle,
@@ -248,11 +324,30 @@
   .detailSubTitle {
     font-size: 12px;
   }
-  .back,.refresh{
+  .back,
+  .refresh {
     font-size: 12px;
   }
   .confirm {
     font-size: 12px;
     height: 35px;
+  }
+  .alertContainer {
+    width: 300px;
+    height: 250px;
+    padding: 10px;
+  }
+  .alertInfo {
+    padding: 3px 10px;
+  }
+  .alertExplain {
+    font-size: 12px;
+  }
+  .alertInfos {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .alertButton {
+    font-size: 12px;
   }
 }

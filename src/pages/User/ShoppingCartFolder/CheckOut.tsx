@@ -1,20 +1,17 @@
 import style from './CheckOut.module.css'
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import type { RootState } from "../../../store/store";
 import { useNavigate } from "react-router-dom";
 import classNames from 'classnames';
 import { useState,useEffect } from 'react';
 import axios from '../../../api/axios';
-import { setOrderInfo,cleanProduct,useDiscount } from '../../../store/shoppingSlice';
 import { MdOutlineArrowBack } from "react-icons/md";
 import { FaSpinner } from "react-icons/fa";
-import { toast } from 'react-toastify';
 interface timeSlot {
   start:string,
   end:string
 }
 function CheckOut() {
-  const dispatch = useDispatch();
   const navigate = useNavigate()
   const shoppingStore = useSelector((state: RootState) => state.shopping);
   const count =shoppingStore.count
@@ -37,6 +34,7 @@ function CheckOut() {
   const [error,setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [timeSlotLoading, setTimeSlotLoading] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
   const getTimeSlot = ()=>{
     setTimeSlotLoading(true)
     axios.post('/api/takeout/time', { count })
@@ -66,75 +64,7 @@ function CheckOut() {
       setRemark(remark)
     }
   }
-  const order = () =>{
-    if(!name||!phone||!email){
-      setError('請填寫完整資料')
-      return
-    }
-    if(!time){
-      setError('請選擇取餐時間')
-      return
-    }
-    if(name.length > 20){
-      setError('姓名不得超過20個字元')
-      return
-    }
-    const phoneRegex = /^(09\d{8}|0\d{1,3}-?\d{6,8})$/;
-    if (!phoneRegex.test(phone)) {
-      setError('電話號碼格式錯誤');
-      return
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Email格式錯誤');
-      return
-    }
-    if(remark.length>100){
-      setError('備註不得超過100個字元')
-      return
-    }
-    if(count<1){
-      setError('購物車為空')
-      return
-    }
-    const list = shoppingStore.productList.map(item => `${item.id}_${item.count}`).join(',');
-    const price = shoppingStore.total
-    const discount = shoppingStore.discount
-    setLoading(true)
-    axios.post('/api/takeout/order',{
-      userId:memberStore.userInfo.userId,
-      name,
-      date,
-      start_time:time?.start,
-      end_time:time?.end,
-      list,
-      count,
-      price,
-      discount,
-      point:getPoint(price),
-      remark,
-      phone_number:phone,
-      email
-    })
-    .then((res) =>{
-      console.log(res.data);
-        if (res.data.code === '000') {
-          navigate('/user/shopping-cart/complete')
-          dispatch(setOrderInfo(res.data.data))
-          dispatch(cleanProduct())
-          dispatch(useDiscount(0))
-          toast.success("訂單已完成")
-       }
-    })
-    .catch(error => {
-        console.error('Order failed:', error);
-        setError(error.response.data.msg)
-    })
-    .finally(()=>{
-      setLoading(false)
-    })
-  }
-  const test = () =>{
+  const pay = () =>{
     if(!name||!phone||!email){
       setError('請填寫完整資料')
       return
@@ -211,6 +141,20 @@ function CheckOut() {
     getTimeSlot()
   },[])
     return <div className={style.container}>
+      {showAlert && <div className={style.alertContainer}>
+        <div className={style.alertTitle}>提醒</div>
+        <div className={style.alertExplain}>此為綠界模擬付款功能，無法使用真實信用卡付款</div>
+        <div className={style.alertExplain}>請使用以下測試資料:</div>
+        <div className={style.alertInfos}>
+          <div className={style.alertInfo}><span>卡號:</span>4311-9511-1111-1111</div>
+          <div className={style.alertInfo}><span>有效月年:</span>01/35</div>
+          <div className={style.alertInfo}><span>安全碼:</span>111</div>
+        </div>
+        <div className={style.alertButtons}>
+          <div className={style.alertButton} onClick={()=>setShowAlert(false)}>取消</div>
+          <div className={style.alertButton} onClick={()=>pay()}>確定</div>
+        </div>
+      </div>}
       <div className={style.infoContainer}>
         <div className={style.userInfos}>
           <div className={style.infoInputContainer}>
@@ -264,12 +208,11 @@ function CheckOut() {
         <div className={classNames(style.detailSubTitle,style.bold)}>總計<span className={style.price}>$ {(shoppingStore.total)-(shoppingStore.discount)}</span></div>
         {memberStore.login && <div className={style.detailSubTitle}>本次新增點數<span className={style.price}> {getPoint((shoppingStore.total)-(shoppingStore.discount))} P</span></div>}
         <div className={style.detailSubTitle}>取餐時間<span className={style.price}>{time?.end}</span></div>
-        {!loading && <div className={style.confirm} onClick={()=>order()}>下單購買</div>}
-        {!loading && <div className={style.confirm} onClick={()=>test()}>綠界測試</div>}
+        {!loading && <div className={style.confirm} onClick={()=>setShowAlert(true)}>前往付款</div>}
         {loading && <div className={style.confirm}><div className={style.spin}><FaSpinner/></div></div>}
         <div className={style.errorMsg}>{error}</div>
       </div>
-    </div>;
+    </div>
   }
   
   export default CheckOut;

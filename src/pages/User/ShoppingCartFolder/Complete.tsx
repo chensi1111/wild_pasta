@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../../store/store";
 import style from './Complete.module.css'
 import dayjs from "dayjs";
@@ -9,6 +9,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { FiCheckCircle } from "react-icons/fi";
 import { useEffect,useState } from "react";
 import { MdOutlineLocalPhone,MdOutlineEmail,MdOutlineErrorOutline,MdAccessTime,MdOutlineCalendarMonth  } from "react-icons/md";
+import { cleanProduct,useDiscount } from '../../../store/shoppingSlice';
 import axios from '../../../api/axios';
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -30,6 +31,7 @@ type TakeOut = {
 function Complete() {
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch();
   const queryParams = new URLSearchParams(location.search);
   const ord_number = queryParams.get("ord_number");
   const [ord, setOrd] = useState<TakeOut | null>(null)
@@ -107,6 +109,8 @@ function Complete() {
     if (res.data.code === '000') {
       setOrd(res.data.data.order)
       setPayStatus(res.data.data.payStatus)
+      dispatch(cleanProduct())
+      dispatch(useDiscount(0))
     }
    })
   .catch(error => {
