@@ -2,12 +2,38 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../store/store";
 import style from './Complete.module.css'
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { FiCheckCircle } from "react-icons/fi";
+import { useEffect,useState } from "react";
 import { MdOutlineLocalPhone,MdOutlineEmail,MdOutlineErrorOutline,MdAccessTime,MdOutlineCalendarMonth  } from "react-icons/md";
+import axios from '../../../api/axios';
+dayjs.extend(utc);
+dayjs.extend(timezone);
+type TakeOut = {
+  ord_number: string;
+  ord_time: string;
+  name: string;
+  date: string;
+  end_time: string;
+  list: string;
+  price:number;
+  discount:number;
+  point:number;
+  remark: string;
+  phone_number: string;
+  email: string;
+  status: string;
+}
 function Complete() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search);
+  const ord_number = queryParams.get("ord_number");
+  const [ord, setOrd] = useState<TakeOut | null>(null)
+  const [payStatus, setPayStatus] = useState("")
   const productMap :Record<string, string>= {
     pastaA: "狼嚎辣肉醬麵",
     pastaB: "火吻碳烤雞肉義大利麵",
@@ -55,9 +81,14 @@ function Complete() {
   const formatDate = (dateString: string) => {
     return dayjs(dateString).format('YYYY/MM/DD HH:mm:ss');
   };
-  const shoppingStore = useSelector((state: RootState) => state.shopping);
+  const formatDateTaipei = (dateString: string) => {
+  return dayjs.utc(dateString).tz("Asia/Taipei").format("YYYY/MM/DD");
+};
   const memberStore = useSelector((state: RootState) => state.member)
-  const productList = getProductList(shoppingStore.orderInfo.list)
+  let productList = null;
+  if (ord) {
+    productList = getProductList(ord.list);
+  }
   const handleComplete = () =>{
     if(memberStore.login){
       navigate('/user/reserveList')
@@ -68,68 +99,88 @@ function Complete() {
   const handleBack = () =>{
     navigate('/user/shopping-cart')
   }
+  useEffect(() => {
+  if (!ord_number) return;
+  axios.post('/api/takeout/complete', { ord_number })
+  .then((res) => {
+    console.log(res.data);
+    if (res.data.code === '000') {
+      setOrd(res.data.data.order)
+      setPayStatus(res.data.data.payStatus)
+    }
+   })
+  .catch(error => {
+    console.error('Error fetching time slots:', error);
+    setOrd(null)
+  })
+  }, [ord_number]);
     return <div>
     <div className={style.container}>
-      {!shoppingStore.orderInfo.ord_number && <div>
+      {payStatus == 'failed' && <div>
         <div className={classNames(style.checkCircle,style.error)}><MdOutlineErrorOutline/></div>
-        <div className={style.formTitle}>訂單錯誤</div>
+        <div className={style.formTitle}>扣款失敗</div>
         <div className={classNames(style.button,style.error)} onClick={()=>handleBack()}>返回</div>
       </div>}
-      {shoppingStore.orderInfo.ord_number && <div>
+      {payStatus == 'success' && !ord && <div>
+        <div className={classNames(style.checkCircle,style.error)}><MdOutlineErrorOutline/></div>
+        <div className={style.formTitle}>訂單失敗</div>
+        <div className={classNames(style.button,style.error)} onClick={()=>handleBack()}>返回</div>
+      </div>}
+      {payStatus == 'success' && ord && ord.status == 'active' && <div>
         <div className={style.checkCircle}><FiCheckCircle/></div>
         <div className={style.formTitle}>訂單完成</div>
         <div className={style.formInfo}>以下是您的訂單資訊:</div>
         <div className={style.titles}>
           <div className={style.infoTitle}>訂單標號 : </div>
-          <span>{shoppingStore.orderInfo.ord_number}</span>
+          <span>{ord.ord_number}</span>
         </div>
         <div className={style.titles}>
           <div className={style.infoTitle}>下單時間 : </div>
-          <span>{formatDate(shoppingStore.orderInfo.ord_time)}</span>
+          <span>{formatDate(ord.ord_time)}</span>
         </div>
         <div className={style.titles}>
           <div className={style.infoTitle}>姓名 : </div>
-          <span>{shoppingStore.orderInfo.name}</span>
+          <span>{ord.name}</span>
         </div>
         <div className={style.titles}>
           <div className={style.infoTitle}>取餐日期 : </div>
-          <span><MdOutlineCalendarMonth/>{shoppingStore.orderInfo.date}</span>
+          <span><MdOutlineCalendarMonth/>{formatDateTaipei(ord.date)}</span>
         </div>
         <div className={style.titles}>
           <div className={style.infoTitle}>取餐時間 : </div>
-          <span><MdAccessTime/>{shoppingStore.orderInfo.end_time}</span>
+          <span><MdAccessTime/>{ord.end_time}</span>
         </div>
         <div className={style.subTitle}>訂購餐點 : </div>
         <div className={style.foods}>
-          {productList.map((item) => (
+          {productList && productList.map((item) => (
             <li key={item.code} className={style.food}>
               <span className={style.foodName}>{item.name}</span>
               <span className={style.foodQty}> × {item.qty}</span>
             </li>
             ))}
         </div>
-        {shoppingStore.orderInfo.remark && <div className={style.remarks}>
+        {ord.remark && <div className={style.remarks}>
           <div className={style.subTitle}>備註 : </div>
-          <div className={style.remark}>{shoppingStore.orderInfo.remark}</div>
+          <div className={style.remark}>{ord.remark}</div>
         </div>}
         {memberStore.login && <div className={style.titles}>
           <div className={style.infoTitle}>小計 : </div>
-          <span>$ {shoppingStore.orderInfo.price}</span>
+          <span>$ {ord.price}</span>
         </div>}
         {memberStore.login && <div className={style.titles}>
           <div className={style.infoTitle}>使用折扣 : </div>
-          <span>$ {shoppingStore.orderInfo.discount}</span>
+          <span>$ {ord.discount}</span>
         </div>}
         <div className={classNames(style.titles,style.total)}>
           <div className={style.infoTitle}>總計 : </div>
-          <span>$ {(shoppingStore.orderInfo.price - shoppingStore.orderInfo.discount)}</span>
+          <span>$ {(ord.price - ord.discount)}</span>
         </div>
         {memberStore.login && <div className={classNames(style.titles,style.point)}>
           <div className={style.infoTitle}>獲得點數 : </div>
-          <span>{shoppingStore.orderInfo.point} P</span>
+          <span>{ord.point} P</span>
         </div>}
-        <div className={style.contact}><MdOutlineLocalPhone/>{shoppingStore.orderInfo.phone_number}</div>
-        <div className={style.contact}><MdOutlineEmail/>{shoppingStore.orderInfo.email}</div>
+        <div className={style.contact}><MdOutlineLocalPhone/>{ord.phone_number}</div>
+        <div className={style.contact}><MdOutlineEmail/>{ord.email}</div>
         <div className={style.button} onClick={()=>handleComplete()}>完成</div>
       </div>}
     </div>

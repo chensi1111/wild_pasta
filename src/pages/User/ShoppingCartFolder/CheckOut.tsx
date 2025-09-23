@@ -240,13 +240,12 @@ function CheckOut() {
                 {(item.end).slice(0,5)}
               </div>
             ))}
-            {!timeList.length && 
+            {!timeSlotLoading && !timeList.length && 
             <div className={style.errorMsg}>目前取餐時間皆已滿</div>            
             }
           </div>
           {!timeSlotLoading && <div className={style.refresh} onClick={()=>getTimeSlot()}>更新取餐時間</div>}
           {timeSlotLoading && <div className={style.refresh}><div className={style.spin}><FaSpinner/></div></div>}
-          {/* <div className={style.infoInputTitle}>付款資訊</div> */}
         </div>
       </div>
       <div className={style.detailContainer}>
