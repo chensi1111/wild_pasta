@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const reserveSlice = createSlice({
   name: 'reserve',
-  initialState: { open: false,info:{date:'--',time:'--',people:0,remark:"",theme:{id:"",name:"",},} },
+  initialState: { open: false,info:{date:'',time:'',people:0,remark:"",theme:{id:"",name:"",},} },
   reducers: {
     openBox: (state) => {
       state.open=true

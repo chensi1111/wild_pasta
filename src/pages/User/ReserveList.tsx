@@ -6,6 +6,7 @@ import axios from "../../api/axios.ts";
 import Pagination from '@mui/material/Pagination';
 import { ConfirmDialog } from "../../components/ConfirmDialog/confirmDialog.tsx";
 import { MdOutlineLocalPhone,MdOutlineEmail,MdAccessTime,MdOutlineCalendarMonth  } from "react-icons/md";
+import { RiFileList3Line } from "react-icons/ri";
 import dayjs from 'dayjs';
 const themeMap: { [key: string]: string } = {
     "birthday": "生日聚餐",
@@ -110,7 +111,7 @@ function ReserveList() {
     setActiveTab("reservation");
     setLoading(true)
     axios
-      .post("/api/user/reserve", { page, pageSize: 10 })
+      .post("/api/user/reserve", { page, pageSize: 5 })
       .then((response) => {
         console.log(response.data);
         if (response.data.code === "000") {
@@ -131,7 +132,7 @@ function ReserveList() {
     setActiveTab("takeOut");
     setLoading(true)
     axios
-      .post("/api/user/takeout",{page, pageSize: 10})
+      .post("/api/user/takeout",{page, pageSize: 5})
       .then((response) => {
         console.log(response.data);
         if (response.data.code === "000") {
@@ -291,116 +292,42 @@ const cancelAvailable=(date:string,time:string,limit:number): boolean=> {
         {activeTab === "reservation" && <div className={style.notice}>注意:預約時間前30分鐘無法取消</div>}
         {activeTab === "takeOut" && <div className={style.notice}>注意:取餐時間前90分鐘無法取消</div>}
         <div className={style.orderContainer}>
-          {activeTab === "reservation" && (
-            <div className={style.tableContainer}>
-              <table className={style.table}>
-              <colgroup>
-                <col style={{ width: "24%" }} />
-                <col style={{ width: "24%" }} />
-                <col style={{ width: "17%" }} />
-                <col style={{ width: "15%" }} />
-                <col style={{ width: "10%" }} />
-                <col style={{ width: "10%" }} />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>訂單編號</th>
-                  <th>訂單時間</th>
-                  <th>日期</th>
-                  <th>時間</th>
-                  <th>人數</th>
-                  <th>取消</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading && 
-                <tr>
-                  <td colSpan={6}>
-                  <div className={style.loadingContainer}>
-                     <div className={style.loading}>載入中...</div>
-                  </div>
-                  </td>
-                </tr>}
-                {!loading && reservationData.length === 0 &&
-                <tr>
-                  <td colSpan={6}>
-                  <div className={style.loadingContainer}>
-                     <div className={style.empty}>目前沒有資料</div>
-                  </div>
-                  </td>
-                </tr>}
-                {!loading && reservationData.length > 0 &&
-                reservationData.map((item: any) => (
-                  <tr key={item.id} onClick={()=>showDetail(item,0)} className={style.row}>
-                    <td>{item.ord_number}</td>
-                    <td>{formatDate(item.ord_time)}</td>
-                    <td>{formatOnlyDate(item.date)}</td>
-                    <td>{item.time.slice(0, 5)}</td>
-                    <td>{item.people}</td>
-                    {cancelAvailable(formatOnlyDate(item.date),item.time.slice(0, 5),-30) && <td className={style.cancel} onClick={(e)=>handleCancel(e,item.ord_number,0)}>X</td>}
-                    {!cancelAvailable(formatOnlyDate(item.date),item.time.slice(0, 5),-30) && <td className={style.cancel}></td>}
-                  </tr>
-                ))
-                }
-              </tbody>
-            </table>
+          {!loading && activeTab === "reservation" && reservationData.map((item: any) => (
+            <div key={item.ord_number} className={style.reservationLists} onClick={()=>showDetail(item,0)}>
+              <div className={style.leftContainer}>
+                <div className={style.leftTitle}><span><RiFileList3Line/></span>{item.ord_number}</div>
+                <div className={style.leftInfo}>訂單時間 : {formatDate(item.ord_time)}</div>
+                <div className={style.leftInfo}>預約日期 : {formatOnlyDate(item.date)}</div>
+                <div className={style.leftInfo}>預約時間 : {(item.time).slice(0,5)}</div>
+              </div>
+              <div className={style.rightContainer}>
+                {cancelAvailable(formatOnlyDate(item.date),item.time.slice(0, 5),-30) && <div className={style.cancel} onClick={(e)=>handleCancel(e,item.ord_number,0)}>X 取消</div>}
+                {!cancelAvailable(formatOnlyDate(item.date),item.time.slice(0, 5),-30) && <div className={style.cancel}></div>}
+              </div>
             </div>
-          )}
-          {activeTab === "takeOut" && (
-            <div className={style.tableContainer}>
-              <table className={style.table}>
-              <colgroup>
-                <col style={{ width: "24%" }} />
-                <col style={{ width: "24%" }} />
-                <col style={{ width: "17%" }} />
-                <col style={{ width: "15%" }} />
-                <col style={{ width: "10%" }} />
-                <col style={{ width: "10%" }} />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>訂單編號</th>
-                  <th>訂單時間</th>
-                  <th>日期</th>
-                  <th>時間</th>
-                  <th>價格</th>
-                  <th>取消</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading && 
-                <tr>
-                  <td colSpan={6}>
-                  <div className={style.loadingContainer}>
-                     <div className={style.loading}>載入中...</div>
-                  </div>
-                  </td>
-                </tr>}
-                {!loading && takeOutData.length === 0 &&
-                <tr>
-                  <td colSpan={6}>
-                  <div className={style.loadingContainer}>
-                     <div className={style.empty}>目前沒有資料</div>
-                  </div>
-                  </td>
-                </tr>}
-                {!loading && takeOutData.length > 0 &&
-                  takeOutData.map((item: any) => (
-                  <tr key={item.id} onClick={()=>showDetail(item,1)} className={style.row}>
-                    <td>{item.ord_number}</td>
-                    <td>{formatDate(item.ord_time)}</td>
-                    <td>{formatOnlyDate(item.date)}</td>
-                    <td>{item.end_time.slice(0, 5)}</td>
-                    <td>$ {item.price - item.discount}</td>
-                    {cancelAvailable(formatOnlyDate(item.date),item.end_time.slice(0, 5),-90) && <td className={style.cancel} onClick={(e)=>handleCancel(e,item.ord_number,1)}>X</td>}
-                    {!cancelAvailable(formatOnlyDate(item.date),item.end_time.slice(0, 5),-90) && <td className={style.cancel}></td>}
-                  </tr>
-                ))
-                }
-              </tbody>
-            </table>
+          ))}
+          {!loading && activeTab === "takeOut" && takeOutData.map((item: any) => (
+            <div key={item.ord_number} className={style.reservationLists} onClick={()=>showDetail(item,1)}>
+              <div className={style.leftContainer}>
+                <div className={style.leftTitle}><span><RiFileList3Line/></span>{item.ord_number}</div>
+                <div className={style.leftInfo}>訂單時間 : {formatDate(item.ord_time)}</div>
+                <div className={style.leftInfo}>取餐日期 : {formatOnlyDate(item.date)}</div>
+                <div className={style.leftInfo}>取餐時間 : {item.end_time.slice(0, 5)}</div>
+              </div>
+              <div className={style.rightContainer}>
+                {cancelAvailable(formatOnlyDate(item.date),item.end_time.slice(0, 5),-90) && <div className={style.cancel} onClick={(e)=>handleCancel(e,item.ord_number,1)}>X</div>}
+                {!cancelAvailable(formatOnlyDate(item.date),item.end_time.slice(0, 5),-90) && <div className={style.cancel}></div>}
+              </div>
             </div>
-          )}
+          ))}
+          {loading && 
+          <div className={style.loadingContainer}>
+            <div className={style.loading}>載入中...</div>
+          </div>}
+          {((activeTab === "takeOut" && !loading && takeOutData.length === 0) ||(activeTab === "reservation" && !loading && reservationData.length === 0)) &&
+          <div className={style.loadingContainer}>
+            <div className={style.empty}>目前沒有資料</div>
+          </div>}
           {((activeTab === "takeOut" && takeOutData.length !== 0) ||(activeTab === "reservation" && reservationData.length !== 0)) && <div className={style.pagination}>
             <Pagination count={totalPages} page={page} onChange={(_, val) => setPage(val)} siblingCount={0} boundaryCount={1} sx={{ul: {whiteSpace: 'nowrap', display: 'flex', flexWrap: 'nowrap', justifyContent: 'center' }}}/>
           </div>}

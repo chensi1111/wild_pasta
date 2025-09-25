@@ -5,8 +5,8 @@
   padding: 80px;
 }
 .container {
-  width: 100%;
-  height: 700px;
+  width: 1200px;
+  height: 900px;
   background-color: rgba(200, 200, 200, 0.8);
   border-radius: 20px;
   border: 2px solid white;
@@ -19,7 +19,7 @@
   font-weight: bold;
 }
 .title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 15px;
 }
@@ -42,42 +42,37 @@
   background-color: rgb(235, 235, 235);
   border-radius: 10px;
   padding: 20px;
-  height: 500px;
+  height: 680px;
   position: relative;
 }
-.tableContainer{
-  overflow-x: auto;
+.reservationLists {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: rgba(230, 230, 230, 0.8);
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
-.table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: auto;
-}
-
-.table th,
-.table td {
-  border: 1px solid #ccc;
-  padding: 8px 20px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.table th {
+.reservationLists:hover {
   background-color: #f2f2f2;
+}
+.leftTitle {
+  font-size: 18px;
   font-weight: bold;
+  margin-bottom: 3px;
+  display: flex;
+  gap: 5px;
+}
+.leftInfo {
+  font-size: 14px;
+  margin-left: 5px;
+  color: rgb(110, 110, 110);
 }
 .cancel {
   color: rgb(180, 0, 0);
   cursor: pointer;
   font-weight: bold;
-}
-.row {
-  cursor: pointer;
-}
-.row:hover {
-  background-color: #f2f2f2;
 }
 .orderDetail {
   position: fixed;
@@ -167,6 +162,28 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #555;
+  animation: pulse 1.5s infinite;
+}
+.transparentBox {
+  background-color: rgba(128, 128, 128, 0.3);
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  top: 80px;
+  left: 0;
+}
 .orderDetail::-webkit-scrollbar,
 .orderContainer::-webkit-scrollbar {
   width: 8px;
@@ -188,28 +205,6 @@
 .orderDetail::-webkit-scrollbar-thumb:hover,
 .orderContainer::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-.loadingContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 334px;
-}
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  color: #555;
-  animation: pulse 1.5s infinite;
-}
-.transparentBox{
-  background-color: rgba(128, 128, 128, 0.3);
-  width: 100vw;
-  height: 100%;
-  position: fixed;
-  top: 80px;
-  left: 0;
 }
 @keyframes pulse {
   0% {
@@ -235,6 +230,9 @@
   .detailInfo .content {
     width: 300px;
   }
+  .cancel {
+    font-size: 14px;
+  }
 }
 @media screen and (max-width: 768px) {
   .wrapper {
@@ -242,18 +240,19 @@
   }
   .container {
     padding: 15px;
-    height: 600px;
+    height: 750px;
   }
   .orderContainer {
     padding: 10px;
-    height: 450px;
+    height: 600px;
   }
   .notice {
     font-size: 12px;
     margin-bottom: 10px;
   }
   .title {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 10px;
   }
   .navs {
     width: 100%;
@@ -263,16 +262,24 @@
     font-size: 16px;
     text-align: center;
   }
-  .table th,
-  .table td {
-    padding: 8px 15px;
-    font-size: 14px;
+  .reservationLists {
+    padding: 10px 15px;
+  }
+
+  .leftTitle {
+    font-size: 16px;
+  }
+  .leftInfo {
+    font-size: 12px;
+  }
+  .cancel {
+    font-size: 12px;
   }
   .orderDetail {
     width: 350px;
     height: fit-content;
-    min-height: 400px;
-    max-height: 450px;
+    min-height: 450px;
+    max-height: 500px;
     padding: 20px;
   }
   .detailTitle {
@@ -296,9 +303,6 @@
     margin: 20px auto 0;
     font-size: 14px;
   }
-  .loadingContainer {
-    min-height: 314px;
-  }
   .loading,
   .empty {
     font-size: 14px;
@@ -311,17 +315,15 @@
   .container {
     padding: 10px;
   }
+  .reservationLists {
+  padding: 10px;
+}
   .orderDetail {
     width: 300px;
     padding: 10px;
   }
   .title {
     font-size: 20px;
-  }
-  .table th,
-  .table td {
-    padding: 8px;
-    font-size: 12px;
   }
   .detailInfo,
   .contact,
@@ -343,8 +345,5 @@
   }
   .subTitle {
     margin: 10px 0 15px;
-  }
-  .loadingContainer {
-    min-height: 294px;
   }
 }

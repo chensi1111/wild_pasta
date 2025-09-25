@@ -91,7 +91,7 @@
   background-color: rgb(220, 220, 220);
 }
 .timeItem.active {
-  border: 2px solid green;
+  border: 2px solid rgb(180, 0, 0);
   background-color: white;
 }
 .timeItem.disable {
@@ -108,11 +108,12 @@
 textarea {
   height: 80px;
   width: 300px;
-  padding: 0 5px;
+  padding: 5px;
   border: 1px solid black;
 }
 .remarkContent {
   font-size: 14px;
+  color: rgb(140, 140, 140);
 }
 .themeContainer {
   display: flex;
@@ -136,21 +137,20 @@ textarea {
   background-color: rgb(220, 220, 220);
 }
 .theme.active {
-  border: 2px solid green;
+  border: 2px solid rgb(180, 0, 0);
   background-color: white;
 }
 .confirm {
-  font-size: 18px;
   border: 2px solid black;
-  padding: 3px 10px;
+  padding: 3px 20px;
   width: fit-content;
   border-radius: 5px;
   margin-top: 5px;
   cursor: pointer;
+  background-color: rgb(240, 240, 240)
 }
 .confirm:hover {
-  border: 2px solid green;
-  color: green;
+  background-color: white
 }
 .warning {
   color: red;
@@ -236,7 +236,6 @@ textarea {
 @media screen and (max-width: 412px) {
   .container {
     width: 330px;
-    height: 500px;
     padding: 30px 15px;
     border-radius: 10px;
   }

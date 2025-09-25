@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px;
+  padding: 60px 0;
 }
 .container {
-  width: 100%;
+  width: 1200px;
   height: fit-content;
   background-color: rgba(200, 200, 200, 0.8);
   border-radius: 20px;
@@ -27,7 +27,6 @@
   width: fit-content;
   height: fit-content;
   padding: 10px;
-  border-right: 2px solid black;
   margin-right: 30px;
 }
 .sideNav {
@@ -38,6 +37,7 @@
   cursor: pointer;
   gap: 5px;
   padding: 10px;
+  border-radius: 5px;
 }
 .sideNav.active {
   background-color: rgb(200, 200, 200);
@@ -54,19 +54,13 @@
   .wrapper {
     padding: 50px;
   }
-  .infos {
-    flex-direction: column;
-  }
-  .selectContainer {
-    font-size: 16px;
-    margin-bottom: 10px;
-    background-color: white;
-    border-radius: 5px;
-  }
 }
 @media screen and (max-width: 1024px) {
   .wrapper {
     padding: 30px;
+  }
+  .infos {
+    flex-direction: column;
   }
   .container {
     padding: 30px 20px;
@@ -74,6 +68,26 @@
   }
   .title {
     font-size: 24px;
+  }
+  .horizontalNavs {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .horizontalNav {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 0;
+    width: 100%;
+    text-align: center;
+    color: rgb(100, 100, 100);
+    border-bottom: 2px solid rgb(100, 100, 100);
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .horizontalNav.active {
+    color: black;
+    border-bottom: 2px solid black;
   }
 }
 @media screen and (max-width: 768px) {
@@ -84,10 +98,21 @@
     padding: 20px 15px;
   }
   .title {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 10px;
   }
   .outletContainer {
-    padding: 20px;
+    padding: 15px;
+  }
+  .horizontalNav {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .horizontalNav {
+    font-size: 12px;
+  }
+  .title {
+    font-size: 16px;
   }
 }

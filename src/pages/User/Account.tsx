@@ -14,6 +14,7 @@ type account = {
   created_at: string;
   last_used_at: string;
   device_id: string;
+  ip: string;
 };
 
 function Account() {
@@ -111,6 +112,10 @@ function Account() {
               <div className={style.info}>
                 <span>登入時間 : </span>
                 {formatDate(account.created_at)}
+              </div>
+              <div className={style.info}>
+                <span>IP : </span>
+                {account.ip}
               </div>
             </div>
             <div className={style.button} onClick={() => handleLogOut(account)}>

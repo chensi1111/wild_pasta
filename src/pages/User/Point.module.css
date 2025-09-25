@@ -8,38 +8,51 @@
   margin-bottom: 10px;
 }
 .point {
-  margin-bottom: 10px;
+  margin: 10px 0;
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(227, 225, 255);
+  border-radius: 10px;
+}
+.pointTitle {
+  color: rgb(57, 44, 252);
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.pointValue {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(57, 44, 252);
+}
+.icon {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(57, 44, 252);
+}
+.plusIcon {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 150, 0);
+}
+.minusIcon {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(180, 0, 0);
 }
 .describe {
   font-size: 14px;
   color: rgb(180, 0, 0);
 }
-.table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: auto;
-}
 
-.table th,
-.table td {
-  border: 1px solid #ccc;
-  padding: 8px 20px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-.row {
-  color: rgb(180, 0, 0);
-}
-.earn {
-  color: green;
-}
 .pagination {
   position: absolute;
   bottom: 0px;
@@ -47,31 +60,47 @@
   transform: translateX(-50%);
 }
 .pointsContainer {
-  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: rgba(230, 230, 230, 0.8);
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
-.pointsContainer::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+.leftContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-
-.pointsContainer::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 5px;
+.rightContainer .pointType {
+  align-items: end;
 }
-
-.pointsContainer::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px;
+.pointType {
+  display: flex;
+  flex-direction: column;
 }
-
-.pointsContainer::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.pointTypeTitle {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.pointTypeNumber {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 3px;
+  color: rgb(0, 150, 0);
+}
+.pointTypeNumber.minus {
+  color: rgb(180, 0, 0);
+}
+.pointTypeValue {
+  font-size: 14px;
+  color: rgb(120, 120, 120);
 }
 .loadingContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 189px;
+  height: 100px;
 }
 .loading {
   display: flex;
@@ -93,19 +122,6 @@
     opacity: 0.3;
   }
 }
-@media screen and (max-width: 1024px) {
-  .table th,
-  .table td {
-    padding: 8px 15px;
-    font-size: 14px;
-  }
-  .table th {
-    font-size: 14px;
-  }
-  .loadingContainer {
-    min-height: 169px;
-  }
-}
 @media screen and (max-width: 768px) {
   .title {
     font-size: 16px;
@@ -115,36 +131,43 @@
     font-size: 12px;
   }
   .point {
+    margin: 10px 0;
+    padding: 10px 15px;
+  }
+  .pointValue {
+    font-size: 20px;
+  }
+  .icon {
+    font-size: 28px;
+  }
+  .plusIcon,
+  .minusIcon {
+    font-size: 16px;
+  }
+  .pointsContainer {
+    padding: 8px 10px;
+  }
+  .leftContainer {
+    gap: 10px;
+  }
+  .pointTypeTitle {
     font-size: 14px;
-    margin-bottom: 5px;
   }
-  .table th,
-  .table td {
-    padding: 5px 12px;
+  .pointTypeNumber {
+    font-size: 16px;
   }
-  .loadingContainer {
-    min-height: 145px;
-  }
-  .loading,.empty{
-    font-size: 14px;
+  .pointTypeValue {
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 414px) {
   .title {
     font-size: 14px;
   }
-  .point {
-    font-size: 12px;
-    margin-bottom: 5px;
+  .pointValue {
+    font-size: 18px;
   }
-  .table th,
-  .table td {
-    font-size: 12px;
-  }
-  .loadingContainer {
-    min-height: 130px;
-  }
-  .loading,.empty{
-    font-size: 12px;
+   .pointTypeNumber {
+    font-size: 16px;
   }
 }

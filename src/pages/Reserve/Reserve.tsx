@@ -8,7 +8,8 @@ import classNames from "classnames";
 import axios from '../../api/axios.ts'
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import { FaSpinner } from "react-icons/fa";
+import { FaSpinner,FaUsers } from "react-icons/fa";
+import { MdOutlineDateRange } from "react-icons/md";
 function Reserve() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -35,6 +36,9 @@ function Reserve() {
       return;
     }else if(phone_number === '') {
       setErrorMsg('請輸入電話號碼');
+      return;
+    }else if(email === '') {
+      setErrorMsg('請輸入Email');
       return;
     }else{
       setErrorMsg('');
@@ -68,51 +72,26 @@ function Reserve() {
   return (
     <>
       <div className={style.container}>
-        <div className={style.reserveContainer}>
-          <div className={style.top}>
-            <div className={style.pic}></div>
-            <div className={style.info}>
-              <div className={style.title}>Wild Pasta</div>
-              <div className={style.address}>台北市信義區信義路五段7號</div>
-            </div>
+        <div className={style.topContainer}>
+          <div className={style.logo}></div>
+          <div className={style.infos}>
+            <div className={style.name}>WILD PASTA</div>
+            <div className={style.address}>台北市信義區信義路5段7號</div>
           </div>
-          <div className={style.dateContainer}>
-            <div className={style.dateInfos}>
-              <div className={style.dateInfo}>
-              <span>{reserveStore.info.date}</span>日期
-            </div>
-            <div className={style.dateInfo}>
-              <span>{reserveStore.info.time}</span>時間
-            </div>
-            <div className={style.dateInfo}>
-              <span>{reserveStore.info.people}</span>位
-            </div>
-            </div>
-            
-            <div className={style.edit} onClick={() => dispatch(openBox())}>
-              修改
-            </div>
-          </div>
-          {reserveStore.info.theme && reserveStore.info.theme.name && <div className={style.themeContainer}>
-              <div className={style.themeItem}>
-                {reserveStore.info.theme.name}
-              </div>
-          </div>}
-          <div className={style.remindTitle}>備註</div>
-          <div className={style.remind}>{reserveStore.info.remark}</div>
         </div>
         <div className={style.reserveContainer}>
+          <div className={style.reserveTitle}>訂位人資料</div>
           <div className={style.contactContainer}>
-            <div className={style.reserveTitle}>訂位人資料</div>
-            <div className={style.infoContainer}>
-              <div className={classNames(style.infoTitle,style.required)}>姓名
+            <div className={style.infoContainers}>
+              <div className={style.infoContainer}>
+                <div className={classNames(style.infoTitle,style.required)}>姓名
+                </div>
+                <input type="text" value={name} placeholder="請輸入姓名" onChange={(e) => setName(e.target.value)}/>
               </div>
-              <input type="text" value={name} placeholder="請輸入姓名" onChange={(e) => setName(e.target.value)}/>
-            </div>
             <div className={style.infoContainer}>
               <div className={classNames(style.infoTitle,style.required)}>電話號碼</div>
                 <input type="text" value={phone_number} onChange={(e) => {const val = e.target.value;if (/^\d*$/.test(val)) {setPhoneNumber(val);}}} placeholder="請輸入電話號碼" />
-            </div>
+              </div>
             <div className={style.infoContainer}>
               <div className={classNames(style.infoTitle,style.required)}>Email</div>
               <input type="text" value={email} placeholder="請輸入Email" onChange={(e) => setEmail(e.target.value)}/>
@@ -121,9 +100,38 @@ function Reserve() {
               <div className={style.infoTitle}>過敏備註</div>
               <input type="text" value={food_allergy} onChange={(e) => setFoodAllergy(e.target.value)} placeholder="ex.蝦" maxLength={50}/>
             </div>
-            {!loading && <div onClick={()=>completeReserve()} className={style.sendReserve}>立即訂位</div>}
-            {loading && <div className={style.sendReserve}><div className={style.spin}><FaSpinner/></div></div>}
-            <div className={style.errorMsg}>{errorMsg}</div>
+            </div>
+            <div className={style.controlContainer}>
+              <div className={style.detailBox}>
+                {reserveStore.info.date && <div className={style.detail}>
+                  <div className={style.detailItems}>
+                    <div className={style.icon}><MdOutlineDateRange/></div>
+                    <div className={style.dateInfos}>
+                      <div className={style.date}>{reserveStore.info.date}</div>
+                      <div className={style.time}>{reserveStore.info.time}</div>
+                    </div>
+                  </div>
+                  <div className={style.detailItems}>
+                    <div className={style.icon}><FaUsers/></div>
+                    <div>{reserveStore.info.people} 位</div>
+                  </div>
+                </div>}
+                {reserveStore.info.date === '' && <div className={style.noInfo}>尚未選擇訂位資訊</div>}
+                {reserveStore.info.theme && reserveStore.info.theme.name && <div className={style.infoBox}>
+                  <div className={style.boxTitle}>主題</div>
+                  <div>{reserveStore.info.theme.name}</div>
+                </div>}
+                {reserveStore.info.remark && <div className={style.infoBox}>
+                  <div className={style.boxTitle}>備註</div>
+                  <div className={style.remark}>{reserveStore.info.remark}</div>
+                </div>}
+                <div className={style.edit} onClick={()=>dispatch(openBox())}>修改訂位資訊</div>
+              </div>
+              
+              {!loading && <div onClick={()=>completeReserve()} className={style.sendReserve}>立即訂位</div>}
+              {loading && <div className={style.sendReserve}><div className={style.spin}><FaSpinner/></div></div>}
+              <div className={style.errorMsg}>{errorMsg}</div> 
+            </div>
           </div>
         </div>
         <ReserveBox></ReserveBox>
