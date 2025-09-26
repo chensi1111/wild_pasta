@@ -1,5 +1,5 @@
 import style from "./TakeOut.module.css";
-import { useState } from 'react';
+import { useState,useRef,useEffect } from 'react';
 import { motion } from "framer-motion";
 import pastaA from '../../assets/food/pastaA.webp'
 import pastaB from '../../assets/food/pastaB.webp'
@@ -32,6 +32,7 @@ import drinkD from '../../assets/food/drinkD.webp'
 import drinkE from '../../assets/food/drinkE.webp'
 
 import { IoMdArrowDropdownCircle,IoMdArrowDropupCircle } from "react-icons/io";
+import { TiArrowSortedUp,TiArrowSortedDown } from "react-icons/ti";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../store/shoppingSlice";
 import classNames from "classnames";
@@ -76,6 +77,46 @@ function TakeOut() {
   { id:'drinkD',name:"炭火黑糖冷萃咖啡",info:"冷萃咖啡,黑糖漿,奶霜", pic: drinkD, price: 140, count: 0 },
   { id:'drinkE',name:"血月石榴冰沙",info:"石榴汁,檸檬汁", pic: drinkE, price: 130, count: 0 },
 ]);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const appetizerRef = useRef<HTMLDivElement>(null);
+  const dessertRef = useRef<HTMLDivElement>(null);
+  const drinkRef = useRef<HTMLDivElement>(null);
+
+  const [active, setActive] = useState<string>("");
+  const [isSwitch, setIsSwitch] = useState<boolean>(false);
+
+  const sections = [
+    { id: "main", ref: mainRef },
+    { id: "appetizer", ref: appetizerRef },
+    { id: "dessert", ref: dessertRef },
+    { id: "drink", ref: drinkRef },
+  ];
+
+  const scrollTo = (ref: any, offset: number) => {
+    if (!ref.current) return;
+    const top = ref.current.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+  useEffect(() => {
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY + 180;
+    let current = "";
+
+    sections.forEach((s) => {
+      if (s.ref.current) {
+        const offsetTop = s.ref.current.offsetTop;
+        if (scrollPosition >= offsetTop) {
+          current = s.id;
+        }
+      }
+    });
+
+    if (current) setActive(current);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [sections]);
 
   const dispatch =useDispatch()
   const navigate = useNavigate()
@@ -126,7 +167,15 @@ function TakeOut() {
   };
   return (
     <div className={style.wrapper}>
-      <motion.div initial={{ y: "-100px", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title}>主食</motion.div>
+      {!isSwitch && <div className={style.switch} onClick={()=>setIsSwitch(true)}><TiArrowSortedUp/></div>}
+      {isSwitch && <div className={style.switch} onClick={()=>setIsSwitch(false)}><TiArrowSortedDown/></div>}
+      <div className={classNames(style.navBox,isSwitch && style.hide)}>
+        <div className={classNames(style.nav,active==='main' && style.active)} onClick={() => scrollTo(mainRef,180)}>主食</div>
+        <div className={classNames(style.nav,active === "appetizer" && style.active)} onClick={() => scrollTo(appetizerRef,180)}>開胃菜</div>
+        <div className={classNames(style.nav,active === "dessert" && style.active)} onClick={() => scrollTo(dessertRef,180)}>甜點</div>
+        <div className={classNames(style.nav,active === "drink" && style.active)} onClick={() => scrollTo(drinkRef,180)}>飲品</div>
+      </div>
+      <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title} ref={mainRef}>主食</motion.div>
       <div className={style.container}>
         {mainDishList.map((item)=>
         <div key={item.id} className={style.itemBox}>
@@ -142,7 +191,7 @@ function TakeOut() {
           <div className={style.itemButton} onClick={()=>handleAddCart(item)}>加入購物車</div>
         </div>)}
       </div>
-       <motion.div initial={{ y: "-100px", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title}>開胃菜</motion.div>
+       <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title} ref={appetizerRef}>開胃菜</motion.div>
       <div className={style.container}>
         {appetizerList.map((item)=>
         <div key={item.id} className={style.itemBox}>
@@ -158,7 +207,7 @@ function TakeOut() {
           <div className={style.itemButton} onClick={()=>handleAddCart(item)}>加入購物車</div>
         </div>)}
       </div>
-      <motion.div initial={{ y: "-100px", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title}>甜點</motion.div>
+      <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title} ref={dessertRef}>甜點</motion.div>
       <div className={style.container}>
         {dessertList.map((item)=>
         <div key={item.id} className={style.itemBox}>
@@ -174,7 +223,7 @@ function TakeOut() {
           <div className={style.itemButton} onClick={()=>handleAddCart(item)}>加入購物車</div>
         </div>)}
       </div>
-      <motion.div initial={{ y: "-100px", opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title}>飲品</motion.div>
+      <motion.div initial={{ scale: 0.9, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} className={style.title} ref={drinkRef}>飲品</motion.div>
       <div className={style.container}>
         {drinkList.map((item)=>
         <div key={item.id} className={style.itemBox}>

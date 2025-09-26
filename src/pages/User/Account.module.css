@@ -39,7 +39,25 @@
 .button:hover {
   background: white;
 }
-
+.spinContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+}
+.spin {
+  display: inline-block;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 @media screen and (max-width: 1024px) {
   .title {
     font-size: 16px;

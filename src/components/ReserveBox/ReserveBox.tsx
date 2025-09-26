@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import axios from '../../api/axios.ts';
 import { useWindowSize } from '../../hooks/useWindowSize.ts';
+import { FaSpinner } from "react-icons/fa";
 type Theme = { id: string; name: string };
 type TimeSlot = { time_slot: string; max_capacity: number; reserved: string };
 type AvailabilityMap = Record<string, boolean>;
@@ -53,6 +54,7 @@ function ReserveBox() {
     const [date, setDate] = useState<Dayjs | null>(dayjs());
     const [count, setCount] = useState<number>(1);
     const [warning, setWarning] = useState<boolean>(false);
+    const [timeSlotLoading, setTimeSlotLoading] = useState(false)
 
     const themeList = [
         {id:'birthday', name:'生日聚餐'},
@@ -110,6 +112,7 @@ function ReserveBox() {
         setSelectedTime("");
     }
     const searchTimeSlot = (date:string)=>{
+        setTimeSlotLoading(true)
         axios.post('/api/reserve/date', { date })
         .then((res) => {
             console.log(res.data);
@@ -129,6 +132,9 @@ function ReserveBox() {
         })
         .catch(error => {
             console.error('Error fetching time slots:', error);
+        })
+        .finally(()=>{
+          setTimeSlotLoading(false)
         })
     }
     const handleSubmit = () => {
@@ -176,11 +182,15 @@ function ReserveBox() {
                     <div className={style.timeContainer}>
                         <div className={style.subTitle}>時間</div>
                         <div className={style.times}>
-                        {timeSlotList.map((time) => (
+                        {!timeSlotLoading && timeSlotList.map((time) => (
                             <div key={time.time_slot} className={classNames(style.timeItem,selectedTime==time.time_slot && style.active,availabilityMap[time.time_slot.slice(0,5)] == false && style.disable)} onClick={() => toggleTime(time.time_slot)}>
                                 {time.time_slot.slice(0,5) }
                             </div>
                         ))}
+                        {timeSlotLoading && <div className={style.spinContainer}>
+                          <div className={style.spin}><FaSpinner/></div>
+                          </div>}
+                        {!timeSlotLoading && !timeSlotList.length && <div className={style.empty}>目前無可訂位時段</div>}
                         </div>
                         {warning && <div className={style.warning}>請選擇時間</div>}
                     </div>

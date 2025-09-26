@@ -4,7 +4,50 @@
   justify-content: center;
   align-items: center;
   padding: 50px 0 100px;
-  
+}
+.navBox {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px black;
+  transition: top 0.5s ease, opacity 0.5s ease;
+  opacity: 1;
+}
+.navBox.hide{
+  top: 0;
+  opacity: 0;
+}
+.switch{
+  position: fixed;
+  top: 75px;
+  right: 50%;
+  transform: translateX(50%);
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+.nav{
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgba(230, 230, 230, 0.8);
+  width: fit-content;
+  white-space: nowrap
+}
+.nav:hover{
+  background-color: rgba(200, 200, 200, 0.8);
+}
+.nav.active{
+  background-color: rgba(200, 200, 200, 0.8);
 }
 .container {
   margin: 0 auto;
@@ -59,12 +102,15 @@
 .itemCount {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: 10px;
-  font-size: 18px;
   user-select: none;
 }
+.countNumber{
+  font-size: 18px;
+}
 .count {
+  font-size: 20px;
   cursor: pointer;
 }
 .itemButton {
@@ -96,14 +142,21 @@
 }
 @media screen and (max-width: 768px) {
   .wrapper {
-    padding: 20px 0 50px;
+    padding: 50px 0;
+  }
+  .navBox{
+    gap: 15px;
+    padding: 8px 15px ;
+  }
+  .nav{
+    font-size: 14px;
+    padding: 5px 8px;
   }
   .container {
     gap: 15px;
   }
   .title {
     font-size: 36px;
-    margin: 30px 0;
   }
   .itemBox {
     width: 200px;
@@ -117,15 +170,28 @@
     margin-top: 5px;
     font-size: 16px;
   }
-  .itemCount {
-    gap: 8px;
-    margin-top: 5px;
+  .countNumber{
     font-size: 16px;
+  }
+  .itemCount {
+    gap: 10px;
+    margin-top: 5px;
+    font-size: 18px;
   }
   .itemButton {
     padding: 5px 12px;
     border: 1px solid gray;
     border-radius: 5px;
     font-size: 12px;
+    margin: 5px auto;
   }
+}
+@media screen and (max-width: 414px) {
+  .navBox{
+    gap: 10px;
+  }
+  .nav{
+    font-size: 12px;
+  }
+  
 }

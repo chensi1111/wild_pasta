@@ -157,6 +157,25 @@ textarea {
   font-size: 14px;
   margin-top: 10px;
 }
+.spinContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+.spin {
+  display: inline-block;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 @media screen and (max-width: 1024px) {
   .container {
     width: 650px;

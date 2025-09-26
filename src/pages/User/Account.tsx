@@ -8,6 +8,7 @@ import type { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUserInfo, setLoginType } from "../../store/memberSlice.ts";
+import { FaSpinner } from "react-icons/fa";
 type account = {
   id: number;
   device_name: string;
@@ -22,11 +23,13 @@ function Account() {
   const navigate = useNavigate();
   const memberStore = useSelector((state: RootState) => state.member);
   const [accountList, setAccountList] = useState<account[]>([]);
+  const [loading, setLoading] = useState(false);
   const formatDate = (dateString: string) => {
     return dayjs(dateString).format("YYYY/MM/DD HH:mm:ss");
   };
   const device_id = localStorage.getItem("deviceId") || "";
   const getAccounts = () =>{
+    setLoading(true)
     axios
       .post("/api/user/accounts")
       .then((response) => {
@@ -43,6 +46,9 @@ function Account() {
       .catch((error) => {
         console.error("Search failed:", error);
         toast.error(error.response.data.msg);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   const handleLogOut = (account: account) => {
@@ -89,7 +95,7 @@ function Account() {
   return (
     <div className={style.container}>
       <div className={style.title}>已登入裝置</div>
-      {accountList &&
+      {!loading && accountList &&
         accountList.map((account) => (
           <div
             className={classNames(
@@ -123,6 +129,9 @@ function Account() {
             </div>
           </div>
         ))}
+      {loading && <div className={style.spinContainer}>
+        <div className={style.spin}><FaSpinner/></div>
+      </div>}
     </div>
   );
 }
