@@ -1,18 +1,18 @@
 import style from "./Reserve.module.css";
 import ReserveBox from "../../components/ReserveBox/ReserveBox";
-import { useEffect,useState } from "react";
-import { openBox,closeBox } from "../../store/reserveSlice";
+import { useEffect, useState } from "react";
+import { openBox, closeBox } from "../../store/reserveSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import classNames from "classnames";
-import axios from '../../api/axios.ts'
-import { toast } from 'react-toastify';
+import axios from "../../api/axios.ts";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { FaSpinner,FaUsers } from "react-icons/fa";
+import { FaSpinner, FaUsers } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
 function Reserve() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(openBox());
     return () => {
@@ -21,27 +21,33 @@ function Reserve() {
   }, []);
   const memberStore = useSelector((state: RootState) => state.member);
   const reserveStore = useSelector((state: RootState) => state.reserve);
-  const [name, setName] = useState(memberStore.userInfo.name || '');
-  const [phone_number, setPhoneNumber] = useState(memberStore.userInfo.phone || '');
-  const [email, setEmail] = useState(memberStore.userInfo.email || '');
-  const [food_allergy, setFoodAllergy] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState(memberStore.userInfo.name || "");
+  const [phone_number, setPhoneNumber] = useState(
+    memberStore.userInfo.phone || ""
+  );
+  const [email, setEmail] = useState(memberStore.userInfo.email || "");
+  const [food_allergy, setFoodAllergy] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const completeReserve = () => {
-    if(reserveStore.info.date === '' || reserveStore.info.time === '' || reserveStore.info.people === 0) {
-      setErrorMsg('請先選擇日期、時間和人數');
+    if (
+      reserveStore.info.date === "" ||
+      reserveStore.info.time === "" ||
+      reserveStore.info.people === 0
+    ) {
+      setErrorMsg("請先選擇日期、時間和人數");
       return;
-    }else if(name === '') {
-      setErrorMsg('請輸入姓名');
+    } else if (name === "") {
+      setErrorMsg("請輸入姓名");
       return;
-    }else if(phone_number === '') {
-      setErrorMsg('請輸入電話號碼');
+    } else if (phone_number === "") {
+      setErrorMsg("請輸入電話號碼");
       return;
-    }else if(email === '') {
-      setErrorMsg('請輸入Email');
+    } else if (email === "") {
+      setErrorMsg("請輸入Email");
       return;
-    }else{
-      setErrorMsg('');
+    } else {
+      setErrorMsg("");
       const finalReserveInfo = {
         ...reserveStore.info,
         theme: reserveStore.info.theme?.id,
@@ -49,26 +55,27 @@ function Reserve() {
         phone_number,
         email,
         food_allergy,
-      }
-      setLoading(true)
-      axios.post('/api/reserve',finalReserveInfo)
-      .then((res) => {
-        console.log(res.data);
-        if(res.data.code === '000'){
-          console.log('訂位成功')
-          toast.success('訂位成功');
-          navigate('/user/reserveList')
-        }
-      })
-      .catch(error => {
-      console.error('Reserve failed:', error);
-      setErrorMsg(error.response.data.msg);
-      })
-      .finally(()=>{
-        setLoading(false)
-      });;
+      };
+      setLoading(true);
+      axios
+        .post("/api/reserve", finalReserveInfo)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.code === "000") {
+            console.log("訂位成功");
+            toast.success("訂位成功");
+            navigate("/user/reserveList");
+          }
+        })
+        .catch((error) => {
+          console.error("Reserve failed:", error);
+          setErrorMsg(error.response.data.msg);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
-  }
+  };
   return (
     <>
       <div className={style.container}>
@@ -80,57 +87,134 @@ function Reserve() {
           </div>
         </div>
         <div className={style.reserveContainer}>
-          <div className={style.reserveTitle}>訂位人資料</div>
           <div className={style.contactContainer}>
-            <div className={style.infoContainers}>
-              <div className={style.infoContainer}>
-                <div className={classNames(style.infoTitle,style.required)}>姓名
+            <div className={style.leftContainer}>
+              <div className={style.ruleContainer}>
+                <div className={style.ruleTitle}>訂位須知</div>
+                <div className={style.ruleContent}>親愛的顧客您好，請詳閱以下訂位規則:</div>
+                <li className={style.ruleInfo}><span>訂位時間 : </span>開放未來3個月內的線上訂位</li>
+                <li className={style.ruleInfo}><span>訂位人數 : </span>訂位人數超過12人，請來電訂位</li>
+                <li className={style.ruleInfo}><span>用餐時間 : </span>用餐時間限制90分鐘，敬請見諒</li>
+                <li className={style.ruleInfo}><span>特殊需求 : </span>如有特殊需求，請於備註欄告知</li>
+                <li className={style.ruleInfo}><span>訂位取消 : </span>請提前於訂位時間前30分鐘進行取消</li>
+                <div className={classNames(style.ruleContent,style.last)}>感謝您的配合，期待您的光臨</div>
+              </div>
+              <div className={style.infoContainers}>
+                <div className={style.reserveTitle}>訂位人資料</div>
+                <div className={style.infoContainer}>
+                  <div className={classNames(style.infoTitle, style.required)}>
+                    姓名
+                  </div>
+                  <input
+                    type="text"
+                    value={name}
+                    placeholder="請輸入姓名"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
-                <input type="text" value={name} placeholder="請輸入姓名" onChange={(e) => setName(e.target.value)}/>
+                <div className={style.infoContainer}>
+                  <div className={classNames(style.infoTitle, style.required)}>
+                    電話號碼
+                  </div>
+                  <input
+                    type="text"
+                    value={phone_number}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (/^\d*$/.test(val)) {
+                        setPhoneNumber(val);
+                      }
+                    }}
+                    placeholder="請輸入電話號碼"
+                  />
+                </div>
+                <div className={style.infoContainer}>
+                  <div className={classNames(style.infoTitle, style.required)}>
+                    Email
+                  </div>
+                  <input
+                    type="text"
+                    value={email}
+                    placeholder="請輸入Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className={style.infoContainer}>
+                  <div className={style.infoTitle}>過敏備註</div>
+                  <input
+                    type="text"
+                    value={food_allergy}
+                    onChange={(e) => setFoodAllergy(e.target.value)}
+                    placeholder="ex.蝦"
+                    maxLength={50}
+                  />
+                </div>
               </div>
-            <div className={style.infoContainer}>
-              <div className={classNames(style.infoTitle,style.required)}>電話號碼</div>
-                <input type="text" value={phone_number} onChange={(e) => {const val = e.target.value;if (/^\d*$/.test(val)) {setPhoneNumber(val);}}} placeholder="請輸入電話號碼" />
-              </div>
-            <div className={style.infoContainer}>
-              <div className={classNames(style.infoTitle,style.required)}>Email</div>
-              <input type="text" value={email} placeholder="請輸入Email" onChange={(e) => setEmail(e.target.value)}/>
             </div>
-            <div className={style.infoContainer}>
-              <div className={style.infoTitle}>過敏備註</div>
-              <input type="text" value={food_allergy} onChange={(e) => setFoodAllergy(e.target.value)} placeholder="ex.蝦" maxLength={50}/>
-            </div>
-            </div>
+
             <div className={style.controlContainer}>
               <div className={style.detailBox}>
-                {reserveStore.info.date && <div className={style.detail}>
-                  <div className={style.detailItems}>
-                    <div className={style.icon}><MdOutlineDateRange/></div>
-                    <div className={style.dateInfos}>
-                      <div className={style.date}>{reserveStore.info.date}</div>
-                      <div className={style.time}>{reserveStore.info.time}</div>
+                {reserveStore.info.date && (
+                  <div className={style.detail}>
+                    <div className={style.detailItems}>
+                      <div className={style.icon}>
+                        <MdOutlineDateRange />
+                      </div>
+                      <div className={style.dateInfos}>
+                        <div className={style.date}>
+                          {reserveStore.info.date}
+                        </div>
+                        <div className={style.time}>
+                          {reserveStore.info.time}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={style.detailItems}>
+                      <div className={style.icon}>
+                        <FaUsers />
+                      </div>
+                      <div>{reserveStore.info.people} 位</div>
                     </div>
                   </div>
-                  <div className={style.detailItems}>
-                    <div className={style.icon}><FaUsers/></div>
-                    <div>{reserveStore.info.people} 位</div>
+                )}
+                {reserveStore.info.date === "" && (
+                  <div className={style.noInfo}>尚未選擇訂位資訊</div>
+                )}
+                {reserveStore.info.theme && reserveStore.info.theme.name && (
+                  <div className={style.infoBox}>
+                    <div className={style.boxTitle}>主題</div>
+                    <div>{reserveStore.info.theme.name}</div>
                   </div>
-                </div>}
-                {reserveStore.info.date === '' && <div className={style.noInfo}>尚未選擇訂位資訊</div>}
-                {reserveStore.info.theme && reserveStore.info.theme.name && <div className={style.infoBox}>
-                  <div className={style.boxTitle}>主題</div>
-                  <div>{reserveStore.info.theme.name}</div>
-                </div>}
-                {reserveStore.info.remark && <div className={style.infoBox}>
-                  <div className={style.boxTitle}>備註</div>
-                  <div className={style.remark}>{reserveStore.info.remark}</div>
-                </div>}
-                <div className={style.edit} onClick={()=>dispatch(openBox())}>修改訂位資訊</div>
+                )}
+                {reserveStore.info.remark && (
+                  <div className={style.infoBox}>
+                    <div className={style.boxTitle}>備註</div>
+                    <div className={style.remark}>
+                      {reserveStore.info.remark}
+                    </div>
+                  </div>
+                )}
+                <div className={style.edit} onClick={() => dispatch(openBox())}>
+                  修改訂位資訊
+                </div>
               </div>
-              
-              {!loading && <div onClick={()=>completeReserve()} className={style.sendReserve}>立即訂位</div>}
-              {loading && <div className={style.sendReserve}><div className={style.spin}><FaSpinner/></div></div>}
-              <div className={style.errorMsg}>{errorMsg}</div> 
+
+              {!loading && (
+                <div
+                  onClick={() => completeReserve()}
+                  className={style.sendReserve}
+                >
+                  立即訂位
+                </div>
+              )}
+              {loading && (
+                <div className={style.sendReserve}>
+                  <div className={style.spin}>
+                    <FaSpinner />
+                  </div>
+                </div>
+              )}
+              <div className={style.errorMsg}>{errorMsg}</div>
             </div>
           </div>
         </div>

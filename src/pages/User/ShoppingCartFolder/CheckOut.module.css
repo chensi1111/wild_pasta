@@ -8,47 +8,34 @@
   width: 60%;
   margin-right: 25px;
   box-sizing: border-box;
-  position: relative;
-  padding-bottom: 50px;
+}
+.bottom{
+  width: 100%;
   display: flex;
-  gap: 30px;
-  position: relative;
+  gap: 20px;
 }
 .userInfos,
 .orderInfos {
   width: 50%;
+  background-color: rgb(236,236,236);
+  padding: 15px;
+  border-radius: 15px;
+  height: fit-content;
 }
-.back {
-  position: absolute;
-  bottom: 0px;
-  width: fit-content;
-  font-size: 14px;
-  margin: 15px 0;
-  padding: 5px 15px;
-  border: 2px solid rgb(180, 0, 0);
-  color: rgb(180, 0, 0);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 130px;
-  height: 35px;
+.top{
+  width: 100%;
+  background-color: rgb(236,236,236);
+  padding: 15px;
+  border-radius: 15px;
+  height: fit-content;
+  margin-bottom: 20px;
 }
-.back:hover {
-  background-color: rgb(200, 200, 200);
-}
-.back span {
-  margin-right: 5px;
-}
+
 .detailContainer {
   width: 40%;
   border-left: 2px solid gray;
   padding-left: 25px;
   box-sizing: border-box;
-}
-.detailTitle {
-  font-size: 18px;
-  margin-bottom: 10px;
 }
 .detailSubTitle {
   padding: 5px 0;
@@ -58,6 +45,7 @@
   justify-content: space-between;
 }
 .detailSubTitle.bold {
+  font-weight: bold;
   border-bottom: 3px solid gray;
 }
 .productContainer {
@@ -79,8 +67,12 @@
   width: 100%;
   margin-bottom: 10px;
 }
-.infoInputTitle {
+.title {
   font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.inputTitle{
   margin-bottom: 5px;
 }
 .infoInput {
@@ -109,21 +101,39 @@
   padding: 5px 10px;
   border: 2px solid transparent;
   border-radius: 5px;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(250, 250, 250);
   user-select: none;
   cursor: pointer;
 }
 .timeItem:hover {
-  background-color: rgb(220, 220, 220);
+  background-color: white;
 }
 .timeItem.active {
-  border: 2px solid green;
+  border: 2px solid rgb(180, 0, 0);
   background-color: white;
 }
 .timeItem.disable {
   background-color: rgb(180, 180, 180);
   opacity: 0.5;
   cursor: not-allowed;
+}
+.back {
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: 2px solid rgb(180, 0, 0);
+  color: rgb(180, 0, 0);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+}
+.back:hover {
+  background-color: white;
+}
+.back span {
+  margin-right: 5px;
 }
 .confirm {
   padding: 10px 15px;
@@ -159,7 +169,7 @@
   height: 35px;
 }
 .refresh:hover {
-  background-color: rgb(200, 200, 200);
+  background-color: white;
 }
 .errorMsg {
   font-size: 14px;
@@ -234,7 +244,22 @@
 .alertButton:hover {
   background-color: rgb(255, 255, 255);
 }
-
+.ruleContent {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.ruleContent.last {
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.ruleInfo {
+  font-size: 14px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+.ruleInfo span {
+  font-weight: 500;
+}
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -243,7 +268,7 @@
     transform: rotate(360deg);
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px) {
   .container {
     flex-direction: column;
   }
@@ -253,7 +278,6 @@
   }
   .infoContainer {
     margin-right: 0;
-    padding-bottom: 60px;
     margin-bottom: 15px;
   }
   .detailContainer {
@@ -262,15 +286,25 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .infoInputTitle,
-  .detailTitle {
+  .bottom{
+    flex-direction: column;
+  }
+    .userInfos,
+  .orderInfos {
+    width: 100%;
+  }
+  .title {
     font-size: 16px;
+  }
+  .inputTitle{
+    font-size: 14px;
   }
   .infoInput {
     height: 30px;
     padding: 2px 10px;
   }
-  .confirm {
+  .confirm,
+  .back {
     padding: 8px 10px;
     height: 40px;
   }
@@ -278,20 +312,18 @@
   .detailSubTitle {
     font-size: 14px;
   }
-  .refresh,
-  .back {
+  .refresh {
     padding: 5px 10px;
     font-size: 14px;
+  }
+  .ruleInfo {
+    margin-left: 15px;
   }
 }
 @media screen and (max-width: 600px) {
   .infoContainer {
     flex-direction: column;
     gap: 10px;
-  }
-  .userInfos,
-  .orderInfos {
-    width: 100%;
   }
   .timeContainer {
     gap: 10px;
@@ -316,19 +348,21 @@
   }
 }
 @media screen and (max-width: 414px) {
-  .infoInputTitle,
-  .detailTitle {
+  .title {
     font-size: 14px;
+  }
+  .inputTitle{
+    font-size: 12px;
   }
   .productContainer,
   .detailSubTitle {
     font-size: 12px;
   }
-  .back,
   .refresh {
     font-size: 12px;
   }
-  .confirm {
+  .confirm,
+  .back {
     font-size: 12px;
     height: 35px;
   }

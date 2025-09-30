@@ -131,7 +131,7 @@
   background-color: rgb(100, 57, 40);
 }
 .addAll {
-  margin-top: 50px;
+  margin-top: 50px!important;
   font-size: 18px;
   padding: 10px 20px;
 }
@@ -159,9 +159,12 @@
     font-size: 36px;
   }
   .itemBox {
-    width: 200px;
+    width: 180px;
     height: 260px;
     padding: 10px;
+  }
+  .itemInfo{
+    font-size: 10px;
   }
   .itemPic {
     height: 100px;
@@ -187,6 +190,14 @@
   }
 }
 @media screen and (max-width: 414px) {
+   .itemBox {
+    width: 160px;
+    height: 260px;
+    padding: 10px;
+  }
+  .itemName {
+    font-size: 14px;
+  }
   .navBox{
     gap: 10px;
   }

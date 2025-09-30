@@ -41,7 +41,7 @@ import { useNavigate } from "react-router-dom";
 
 function TakeOut() {
   const [mainDishList, setMainDishList] = useState([
-  { id:'pastaA',name: "狼嚎辣肉醬麵", info: "手切牛豬混合絞肉,特製辣番茄醬", pic: pastaA, price: 320, count: 0 },
+  { id:'pastaA',name: "狼嚎辣肉醬麵", info: "牛豬混合絞肉,特製辣番茄醬", pic: pastaA, price: 320, count: 0 },
   { id:'pastaB',name: "火吻碳烤雞肉義大利麵", info: "炭烤雞胸,煙燻甜椒,奶油蒜香醬", pic: pastaB, price: 300, count: 0 },
   { id:'pastaC',name: "荒野蒜香培根麵", info: "厚切培根,蒜片", pic: pastaC, price: 280, count: 0 },
   { id:'pastaD',name: "黑夜墨魚獵人麵", info: "墨魚汁,花枝圈,黑蒜末", pic: pastaD, price: 350, count: 0 },

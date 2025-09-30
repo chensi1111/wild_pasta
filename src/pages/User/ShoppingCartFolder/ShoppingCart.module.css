@@ -3,15 +3,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px 80px 100px;
+  padding: 50px 50px 100px;
 }
 .breads {
   margin: 50px 0;
 }
 .container {
   width: 100%;
+  max-width: 1200px;
   height: fit-content;
-  background-color: rgba(200, 200, 200, 0.8);
+  background-color: rgb(220, 220, 220);
   border-radius: 20px;
   border: 2px solid white;
   padding: 45px;
@@ -29,7 +30,7 @@
     padding: 25px;
   }
   .container {
-    padding: 25px;
+    padding: 20px;
   }
   .breads {
     margin: 25px 0;

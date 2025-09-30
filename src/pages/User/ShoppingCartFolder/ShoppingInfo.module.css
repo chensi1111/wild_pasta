@@ -5,18 +5,82 @@
 }
 .infoContainer {
   width: 70%;
-  margin-right: 25px;
+  margin-right: 15px;
   box-sizing: border-box;
   position: relative;
   padding-bottom: 50px;
 }
-.tableContainer {
-  overflow-x: auto;
+.productsContainer {
+  max-height: 500px;
+  overflow: auto;
+  padding: 5px;
+  white-space: nowrap;
 }
+.productContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(236, 236, 236);
+}
+.left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pic img {
+  width: 100%;
+  height: 100%;
+}
+.countContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.countContainer .count {
+  font-size: 24px;
+  cursor: pointer;
+}
+.countContainer .countNumber {
+  width: 20px;
+  text-align: center;
+}
+.price {
+  font-size: 18px;
+}
+.total {
+  font-size: 18px;
+  width: fit-content;
+  min-width: 60px;
+}
+
 .payContainer {
   width: 30%;
-  border-left: 2px solid gray;
-  padding-left: 25px;
+  padding-left: 15px;
   box-sizing: border-box;
 }
 .empty {
@@ -28,57 +92,13 @@
 .empty span {
   cursor: pointer;
 }
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.table th {
-  text-align: left;
-  padding-bottom: 10px;
-  border-bottom: 2px solid black;
-}
-.table td {
-  padding: 5px 20px 5px 0;
-}
-.firstProduct {
-  padding-top: 20px !important;
-}
-.productList {
-  margin-top: 20px;
-}
-.productNames {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.name {
-  font-size: 16px;
-}
-.pic img {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-}
-.countContainer {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.count {
-  font-size: 18px;
-  cursor: pointer;
-  user-select: none;
-}
-.countNumber {
-  font-size: 20px;
-  user-select: none;
-}
+
 .cancel {
   font-size: 18px;
   color: rgb(180, 0, 0);
   font-weight: bold;
   cursor: pointer;
+  margin-right: 5px;
 }
 .buttons {
   display: flex;
@@ -95,31 +115,27 @@
   align-items: center;
 }
 .infoButton:hover {
-  background-color: rgb(200, 200, 200);
+  background-color: white;
 }
 .infoButton span {
   margin-left: 5px;
 }
-.infoContainer::-webkit-scrollbar,
-.orderContainer::-webkit-scrollbar {
+.productsContainer::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-.infoContainer::-webkit-scrollbar-track,
-.orderContainer::-webkit-scrollbar-track {
+.productsContainer::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 5px;
 }
 
-.infoContainer::-webkit-scrollbar-thumb,
-.orderContainer::-webkit-scrollbar-thumb {
+.productsContainer::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
 
-.infoContainer::-webkit-scrollbar-thumb:hover,
-.orderContainer::-webkit-scrollbar-thumb:hover {
+.productsContainer::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 .payTitle {
@@ -181,13 +197,8 @@
 .error a {
   color: rgb(180, 0, 0);
 }
+
 @media screen and (max-width: 1024px) {
-  .pic img {
-    width: 50px;
-    height: 50px;
-  }
-}
-@media screen and (max-width: 900px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -204,22 +215,14 @@
     padding-left: 0;
     border-left: none;
   }
+  .pic {
+    width: 60px;
+    height: 60px;
+  }
 }
 @media screen and (max-width: 768px) {
-  .countContainer {
-    gap: 8px;
-  }
-  .table td {
-    font-size: 14px;
-  }
-  .name {
-    font-size: 14px;
-  }
-  .count {
+  .title{
     font-size: 16px;
-  }
-  .countNumber {
-    font-size: 18px;
   }
   .infoButton {
     padding: 5px 10px;
@@ -232,43 +235,96 @@
     height: 30px;
     padding: 2px 10px;
   }
+  .left,
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .countContainer .countNumber {
+    width: 18px;
+    font-size: 14px;
+  }
+  .countContainer .count {
+    font-size: 20px;
+  }
+  .name {
+    font-size: 14px;
+  }
+  .price {
+    font-size: 16px;
+  }
+  .total {
+    font-size: 16px;
+    min-width: 50px;
+  }
+  .cancel {
+    font-size: 16px;
+    margin-right: 5px;
+  }
+  .empty {
+    height: 150px;
+    font-size: 14px;
+  }
 }
 @media screen and (max-width: 600px) {
   .infoContainer {
     padding-bottom: 60px;
   }
-  .table {
-    width: 500px;
-  }
   .buttons {
     bottom: 10px;
   }
-  .pic img {
+  .productContainer {
+    width: 100%;
+    min-width: 400px;
+  }
+  .pic {
     width: 40px;
     height: 40px;
   }
   .payContainer input {
     font-size: 14px;
   }
-}
-@media screen and (max-width: 414px) {
-  .table td {
-    font-size: 12px;
-  }
   .name {
     font-size: 12px;
   }
-  .count {
+  .price {
     font-size: 14px;
   }
-  .countNumber {
-    font-size: 16px;
+  .cancel {
+    font-size: 14px;
+    margin-right: 3px;
   }
+  .total {
+    font-size: 14px;
+    min-width: 50px;
+  }
+}
+@media screen and (max-width: 414px) {
   .checkout {
     font-size: 12px;
   }
   .payTitle {
     padding-bottom: 8px;
     margin-bottom: 15px;
+  }
+  .price {
+    font-size: 12px;
+  }
+  .cancel {
+    font-size: 12px;
+    margin-right: 0px;
+  }
+  .total {
+    font-size: 12px;
+    min-width: 40px;
+  }
+  .empty {
+    height: 100px;
+    font-size: 12px;
+  }
+  .infoButton {
+    padding: 5px 10px;
+    font-size: 12px;
   }
 }

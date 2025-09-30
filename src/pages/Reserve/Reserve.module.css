@@ -1,9 +1,13 @@
 .container {
-  padding: 50px 150px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .topContainer {
   background-image: url("/src/assets/moon.webp");
   width: 100%;
+  max-width: 1200px;
   height: 250px;
   background-position: top;
   border-radius: 20px;
@@ -32,28 +36,61 @@
 }
 .reserveContainer {
   width: 100%;
+  max-width: 1200px;
   background-color: rgb(220, 220, 220);
   border: 2px solid black;
   border-radius: 20px;
-  padding: 50px;
+  padding: 30px;
+}
+.leftContainer {
+  width: 60%;
+}
+.ruleContainer {
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(240, 240, 240, 0.8);
+  margin-bottom: 30px;
 }
 .contactContainer {
   display: flex;
-  gap: 100px;
+  gap: 30px;
 }
 .reserveTitle {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 30px;
 }
+.ruleTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.ruleContent {
+  margin-bottom: 10px;
+}
+.ruleContent.last {
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.ruleInfo {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+.ruleInfo span {
+  font-weight: bold;
+}
 .infoContainers {
-  width: 40%;
+  width: 100%;
+  padding: 25px;
+  border-radius: 15px;
+  background-color: rgba(240, 240, 240, 0.8);
 }
 .controlContainer {
-  width: 60%;
+  width: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 20px;
 }
 .infoContainer {
@@ -78,14 +115,13 @@
 }
 .detailBox {
   width: 100%;
-  height: 100%;
+  height: fit-content;
   border: 1px solid rgb(180, 180, 180);
   border-radius: 10px;
   padding: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 25px;
 }
 .noInfo {
   display: flex;
@@ -182,14 +218,14 @@
     flex-direction: column;
     gap: 30px;
   }
-  .infoContainers,
+  .leftContainer,
   .controlContainer {
     width: 100%;
   }
 }
 @media screen and (max-width: 768px) {
   .container {
-    padding: 30px;
+    padding: 30px 20px;
   }
   .topContainer {
     height: 180px;
@@ -214,9 +250,25 @@
     font-size: 20px;
     margin-bottom: 20px;
   }
+  .ruleContainer {
+    padding: 15px;
+  }
+  .ruleInfo {
+    margin-left: 15px;
+  }
+  .ruleTitle {
+    font-size: 20px;
+  }
+  .ruleContent,
+  .ruleInfo {
+    font-size: 14px;
+  }
+  .infoContainers {
+    padding: 15px;
+  }
   .infoTitle,
   .date {
-    font-size: 16px;
+    font-size: 14px;
   }
   .infoContainer input {
     font-size: 14px;
@@ -233,11 +285,10 @@
     padding: 8px 0;
   }
   .noInfo {
-    height: 80px;
     font-size: 14px;
   }
 }
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 414px) {
   .topContainer {
     padding-left: 15px;
     height: 150px;
@@ -245,6 +296,10 @@
   }
   .reserveContainer {
     border-radius: 15px;
+    padding: 15px;
+  }
+  .ruleTitle {
+    font-size: 18px;
   }
   .reserveTitle {
     font-size: 18px;
@@ -259,7 +314,6 @@
     font-size: 24px;
   }
   .noInfo {
-    height: 60px;
     font-size: 12px;
   }
 }

@@ -58,45 +58,26 @@ function ShoppingInfo() {
   return (
     <div className={style.container}>
       <div className={style.infoContainer}>
-        <div className={style.tableContainer}>
-          <table className={style.table}>
-          <colgroup>
-            <col style={{ width: "50%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "20%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "2%" }} />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>商品</th>
-              <th>價格</th>
-              <th>數量</th>
-              <th>總計</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {shoppingStore.productList.map((item,index) => (
-              <tr key={item.id}>
-                <td className={classNames(style.productNames,index===0 && style.firstProduct)}>
-                  <div className={style.name}>{item.name}</div>
-                  <div className={style.pic}><img src={item.pic}/></div>
-                </td>
-                <td className={classNames(index === 0 && style.firstProduct)}>$ {item.price}</td>
-                <td className={classNames(index === 0 && style.firstProduct)}>
-                  <div className={style.countContainer}>
-                    <div className={style.count} onClick={()=>{dispatch(reduceCount(item))}}><IoMdArrowDropdownCircle/></div>
-                    <div className={style.countNumber}>{item.count}</div>
-                    <div className={style.count} onClick={()=>{dispatch(addCount(item))}}><IoMdArrowDropupCircle/></div>
-                  </div>
-                </td>
-                <td className={classNames(index === 0 && style.firstProduct)}>$ {item.price * item.count}</td>
-                <td className={classNames(index === 0 && style.firstProduct)}><div className={style.cancel} onClick={()=>{dispatch(deleteProduct(item))}}>X</div></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className={style.title}>商品</div>
+        <div className={style.productsContainer}>
+          {shoppingStore.productList.map((item) => (
+            <div className={style.productContainer} key={item.id}>
+              <div className={style.left}>
+                <div className={style.pic}><img src={item.pic}/></div>
+                <div className={style.name}>{item.name}</div>
+              </div>
+              <div className={style.right}>
+                <div className={style.price}>$ {item.price}</div>
+                <div className={style.countContainer}>
+                  <div className={style.count} onClick={()=>{dispatch(reduceCount(item))}}><IoMdArrowDropdownCircle/></div>
+                  <div className={style.countNumber}>{item.count}</div>
+                  <div className={style.count} onClick={()=>{dispatch(addCount(item))}}><IoMdArrowDropupCircle/></div>
+                </div>
+                <div className={style.total}>$ {item.count*item.price}</div>
+                <div className={style.cancel} onClick={()=>{dispatch(deleteProduct(item))}}>X</div>
+              </div>
+            </div>
+          ))}
         </div>
         {!shoppingStore.productList.length &&<div className={style.empty}><span onClick={()=>navigate('/take-out')}>購物車為空，點我前往選購</span></div>}
         <div className={style.buttons}>

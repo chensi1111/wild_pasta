@@ -156,28 +156,38 @@ function CheckOut() {
         </div>
       </div>}
       <div className={style.infoContainer}>
-        <div className={style.userInfos}>
+        <div className={style.top}>
+          <div className={style.title}>購物須知</div>
+          <div className={style.ruleContent}>親愛的顧客您好，請詳閱以下購物規則:</div>
+            <li className={style.ruleInfo}><span>餐點數量 : </span>餐點總數超過30道，請提前一天來電訂購</li>
+            <li className={style.ruleInfo}><span>付款方式 : </span>使用信用卡線上付款</li>
+            <li className={style.ruleInfo}><span>特殊需求 : </span>如有特殊需求，請於備註欄告知</li>
+            <li className={style.ruleInfo}><span>外帶取消 : </span>請提前於取餐時間前90分鐘進行取消</li>
+          <div className={classNames(style.ruleContent,style.last)}>感謝您的配合，期待您的光臨</div>
+        </div>
+        <div className={style.bottom}>
+            <div className={style.userInfos}>
+          <div className={style.title}>顧客資訊</div>
           <div className={style.infoInputContainer}>
-            <div className={style.infoInputTitle}>姓名</div>
+            <div className={style.inputTitle}>姓名</div>
             <input type="text" className={style.infoInput} value={name} onChange={(e)=>setName(e.target.value)}/>
           </div>
           <div className={style.infoInputContainer}>
-            <div className={style.infoInputTitle}>電話</div>
+            <div className={style.inputTitle}>電話</div>
             <input type="text" className={style.infoInput} value={phone} onChange={(e)=>setPhone(e.target.value)}/>
           </div>
           <div className={style.infoInputContainer}>
-            <div className={style.infoInputTitle}>信箱</div>
+            <div className={style.inputTitle}>信箱</div>
             <input type="text" className={style.infoInput} value={email} onChange={(e)=>setEmail(e.target.value)}/>
           </div>
           <div className={style.textareaContainer}>
-            <div className={style.infoInputTitle}>備註</div>
+            <div className={style.inputTitle}>備註</div>
             <textarea value={remark} onChange={(e)=>handleSetRemark(e.target.value)}></textarea>
             <div className={style.remarkNotice}>{remark.length} / 100</div>
         </div>
-        <div className={style.back} onClick={()=>navigate('/user/shopping-cart')}><span><MdOutlineArrowBack/></span>返回購物車</div>
         </div>
         <div className={style.orderInfos}>
-          <div className={style.infoInputTitle}>選擇取餐時間</div>
+          <div className={style.title}>選擇取餐時間</div>
           <div className={style.timeContainer}>
             {timeList.map((item) => (
               <div key={item.end} className={classNames(style.timeItem,(item.end).slice(0,5) === time?.end && style.active)} onClick={()=>setTimeSlot(item)}>
@@ -191,9 +201,10 @@ function CheckOut() {
           {!timeSlotLoading && <div className={style.refresh} onClick={()=>getTimeSlot()}>更新取餐時間</div>}
           {timeSlotLoading && <div className={style.refresh}><div className={style.spin}><FaSpinner/></div></div>}
         </div>
+        </div>
       </div>
       <div className={style.detailContainer}>
-        <div className={style.detailTitle}>您的訂單</div>
+        <div className={style.title}>您的訂單</div>
         <div className={classNames(style.detailSubTitle,style.bold)}>商品<span>價格</span></div>
         <div className={style.productContainer}>
           {shoppingStore.productList.map((item) => (
@@ -210,6 +221,7 @@ function CheckOut() {
         <div className={style.detailSubTitle}>取餐時間<span className={style.price}>{time?.end}</span></div>
         {!loading && <div className={style.confirm} onClick={()=>setShowAlert(true)}>前往付款</div>}
         {loading && <div className={style.confirm}><div className={style.spin}><FaSpinner/></div></div>}
+        <div className={style.back} onClick={()=>navigate('/user/shopping-cart')}><span><MdOutlineArrowBack/></span>返回購物車</div>
         <div className={style.errorMsg}>{error}</div>
       </div>
     </div>
