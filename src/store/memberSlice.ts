@@ -7,7 +7,6 @@ const memberSlice = createSlice({
     login: false,
     userInfo:{
       accessToken:"",
-      refreshToken:"",
       account:"",
       email:"",
       userId:"",
@@ -39,7 +38,6 @@ const memberSlice = createSlice({
     clearUserInfo: (state) =>{
       state.userInfo ={
       accessToken:"",
-      refreshToken:"",
       account:"",
       email:"",
       userId:"",
@@ -49,15 +47,11 @@ const memberSlice = createSlice({
       point:0
     }
     },
-    setTokens: (state,action) => {
-      state.userInfo.accessToken = action.payload.accessToken
-      state.userInfo.refreshToken = action.payload.refreshToken
-    },
     setLoginType:(state,action) =>{
       state.login = action.payload
     }
   },
 });
 
-export const { openBox,closeBox,toggleBox,setUserInfo,updateEmail,setLoginType,setTokens,clearUserInfo,updatePoint} = memberSlice.actions;
+export const { openBox,closeBox,toggleBox,setUserInfo,updateEmail,setLoginType,clearUserInfo,updatePoint} = memberSlice.actions;
 export default memberSlice.reducer;

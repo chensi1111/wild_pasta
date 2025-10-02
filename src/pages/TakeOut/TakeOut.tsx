@@ -179,7 +179,7 @@ function TakeOut() {
       <div className={style.container}>
         {mainDishList.map((item)=>
         <div key={item.id} className={style.itemBox}>
-          <div className={style.itemPic}><img src={item.pic} /></div>
+          <div className={style.itemPic}><img src={item.pic} loading="lazy"/></div>
           <div className={style.itemName}>{item.name}</div>
           <div className={style.itemInfo}>{item.info}</div>
           <div className={style.itemPrice}>$ {item.price}</div>
@@ -195,7 +195,7 @@ function TakeOut() {
       <div className={style.container}>
         {appetizerList.map((item)=>
         <div key={item.id} className={style.itemBox}>
-          <div className={style.itemPic}><img src={item.pic} /></div>
+          <div className={style.itemPic}><img src={item.pic} loading="lazy"/></div>
           <div className={style.itemName}>{item.name}</div>
           <div className={style.itemInfo}>{item.info}</div>
           <div className={style.itemPrice}>$ {item.price}</div>
@@ -211,7 +211,7 @@ function TakeOut() {
       <div className={style.container}>
         {dessertList.map((item)=>
         <div key={item.id} className={style.itemBox}>
-          <div className={style.itemPic}><img src={item.pic} /></div>
+          <div className={style.itemPic}><img src={item.pic} loading="lazy"/></div>
           <div className={style.itemName}>{item.name}</div>
           <div className={style.itemInfo}>{item.info}</div>
           <div className={style.itemPrice}>$ {item.price}</div>
@@ -227,7 +227,7 @@ function TakeOut() {
       <div className={style.container}>
         {drinkList.map((item)=>
         <div key={item.id} className={style.itemBox}>
-          <div className={style.itemPic}><img src={item.pic} /></div>
+          <div className={style.itemPic}><img src={item.pic} loading="lazy"/></div>
           <div className={style.itemName}>{item.name}</div>
           <div className={style.itemInfo}>{item.info}</div>
           <div className={style.itemPrice}>$ {item.price}</div>

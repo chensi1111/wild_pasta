@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import classNames from "classnames";
-import type { RootState } from "../../store/store";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUserInfo, setLoginType } from "../../store/memberSlice.ts";
 import { FaSpinner } from "react-icons/fa";
@@ -21,7 +20,6 @@ type account = {
 function Account() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const memberStore = useSelector((state: RootState) => state.member);
   const [accountList, setAccountList] = useState<account[]>([]);
   const [loading, setLoading] = useState(false);
   const formatDate = (dateString: string) => {
@@ -54,9 +52,7 @@ function Account() {
   const handleLogOut = (account: account) => {
     if (account.device_id === device_id) {
       axios
-        .post("/api/user/logout", {
-          refreshToken: memberStore.userInfo.refreshToken,
-        })
+        .post("/api/user/logout")
         .then((response) => {
           console.log(response.data);
           if (response.data.code == "000") {

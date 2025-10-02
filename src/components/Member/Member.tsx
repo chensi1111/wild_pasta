@@ -16,9 +16,7 @@ function Member() {
         navigate(path)
     }
     const handleLogOut = ()=>{
-      axios.post('/api/user/logout', {
-        refreshToken:memberStore.userInfo.refreshToken
-    })
+      axios.post('/api/user/logout')
     .then(response => {
       console.log(response.data);
       if(response.data.code=='000'){

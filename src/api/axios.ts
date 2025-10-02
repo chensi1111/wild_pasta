@@ -10,6 +10,7 @@ const instance: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 instance.interceptors.request.use(
   (config) => {
@@ -67,8 +68,6 @@ instance.interceptors.response.use(
       }
 
       const userInfo = JSON.parse(userInfoString);
-      const refreshToken = userInfo.refreshToken;
-      const userId = userInfo.userId;
 
       // ➤ 如果已經正在刷新，就等待
       if (isRefreshing) {
@@ -84,14 +83,12 @@ instance.interceptors.response.use(
       // ➤ 否則主動觸發刷新
       isRefreshing = true;
       try {
-        const response = await instance.post("/api/user/refresh", { refreshToken, userId });
+        const response = await instance.post("/api/user/refresh");
         if (response.data.code === '000') {
           const newAccessToken = response.data.data.accessToken;
-          const newRefreshToken = response.data.data.refreshToken;
 
           // ➤ 更新 localStorage
           userInfo.accessToken = newAccessToken;
-          userInfo.refreshToken = newRefreshToken;
           localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
           // ➤ 通知等待中的請求

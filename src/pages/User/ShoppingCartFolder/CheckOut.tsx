@@ -65,36 +65,50 @@ function CheckOut() {
     }
   }
   const pay = () =>{
-    if(!name||!phone||!email){
-      setError('請填寫完整資料')
-      return
+    const validateForm = () => {
+    const validators = [
+      {
+        condition: !name || !phone || !email,
+        message: "請填寫完整資料",
+      },
+      {
+        condition: !time,
+        message: "請選擇取餐時間",
+      },
+      {
+        condition: name.length > 20,
+        message: "姓名不得超過20個字元",
+      },
+      {
+        condition: !/^(09\d{8}|0\d{1,3}-?\d{6,8})$/.test(phone),
+        message: "電話號碼格式錯誤",
+      },
+      {
+        condition: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+        message: "Email格式錯誤",
+      },
+      {
+        condition: remark.length > 100,
+        message: "備註不得超過100個字元",
+      },
+      {
+        condition: count < 1,
+        message: "購物車為空",
+      },
+    ];
+  
+    for (const v of validators) {
+      if (v.condition) {
+        setError(v.message);
+        setShowAlert(false);
+        return false;
+      }
     }
-    if(!time){
-      setError('請選擇取餐時間')
-      return
-    }
-    if(name.length > 20){
-      setError('姓名不得超過20個字元')
-      return
-    }
-    const phoneRegex = /^(09\d{8}|0\d{1,3}-?\d{6,8})$/;
-    if (!phoneRegex.test(phone)) {
-      setError('電話號碼格式錯誤');
-      return
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Email格式錯誤');
-      return
-    }
-    if(remark.length>100){
-      setError('備註不得超過100個字元')
-      return
-    }
-    if(count<1){
-      setError('購物車為空')
-      return
-    }
+  
+    return true; 
+  };
+  
+  if (!validateForm()) return;
     const list = shoppingStore.productList.map(item => `${item.id}_${item.count}`).join(',');
     const price = shoppingStore.total
     const discount = shoppingStore.discount
@@ -189,17 +203,22 @@ function CheckOut() {
         <div className={style.orderInfos}>
           <div className={style.title}>選擇取餐時間</div>
           <div className={style.timeContainer}>
-            {timeList.map((item) => (
+            {!timeSlotLoading && timeList.map((item) => (
               <div key={item.end} className={classNames(style.timeItem,(item.end).slice(0,5) === time?.end && style.active)} onClick={()=>setTimeSlot(item)}>
                 {(item.end).slice(0,5)}
               </div>
             ))}
-            {!timeSlotLoading && !timeList.length && 
+            {!timeSlotLoading && !timeList.length && date &&
             <div className={style.errorMsg}>目前取餐時間皆已滿</div>            
             }
+            {!timeSlotLoading && !timeList.length && !date && 
+            <div className={style.errorMsg}>伺服器錯誤，請稍後再試</div>            
+            }
+            {timeSlotLoading &&<div className={style.spinContainer}>
+              <div className={style.spin}><FaSpinner/></div>
+            </div>}
           </div>
           {!timeSlotLoading && <div className={style.refresh} onClick={()=>getTimeSlot()}>更新取餐時間</div>}
-          {timeSlotLoading && <div className={style.refresh}><div className={style.spin}><FaSpinner/></div></div>}
         </div>
         </div>
       </div>
