@@ -62,7 +62,7 @@ function App() {
       <SideReserveButton />
       <Member />
       <Cover />
-      <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
+      <ToastContainer position="top-center" autoClose={2000} hideProgressBar />
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />

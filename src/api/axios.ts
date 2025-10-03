@@ -37,7 +37,7 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// === refreshToken 機制 ===
+// refreshToken 機制
 let isRefreshing = false;
 let refreshSubscribers: Function[] = [];
 
@@ -54,7 +54,7 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
-    // ➤ 如果是 401 且還沒 retry 過
+    // 如果是 401 且還沒 retry 過
     if (
       error.response?.status === 401 &&
       !originalRequest._retry
@@ -69,7 +69,7 @@ instance.interceptors.response.use(
 
       const userInfo = JSON.parse(userInfoString);
 
-      // ➤ 如果已經正在刷新，就等待
+      // 如果已經正在刷新，就等待
       if (isRefreshing) {
         return new Promise((resolve) => {
           addRefreshSubscriber((newToken: string) => {
@@ -80,21 +80,20 @@ instance.interceptors.response.use(
         });
       }
 
-      // ➤ 否則主動觸發刷新
+      // 否則主動觸發刷新
       isRefreshing = true;
       try {
         const response = await instance.post("/api/user/refresh");
         if (response.data.code === '000') {
           const newAccessToken = response.data.data.accessToken;
 
-          // ➤ 更新 localStorage
           userInfo.accessToken = newAccessToken;
           localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
-          // ➤ 通知等待中的請求
+          // 通知等待中的請求
           onRefreshed(newAccessToken);
 
-          // ➤ 重新嘗試原始請求
+          // 重新嘗試原始請求
           originalRequest.headers = originalRequest.headers ?? {};
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return instance(originalRequest);
@@ -108,6 +107,9 @@ instance.interceptors.response.use(
       } finally {
         isRefreshing = false;
       }
+    }
+    if(error.response?.status === 429){
+      alert('操作太頻繁，請稍後再試')
     }
 
     return Promise.reject(error);
