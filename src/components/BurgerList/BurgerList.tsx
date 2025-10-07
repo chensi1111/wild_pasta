@@ -22,6 +22,9 @@ function BurgerList() {
           burgerStore.open && style.activate
         )}
       >
+        <div className={style.nav} onClick={() => handleClick("/")}>
+          首頁
+        </div>
         <div className={style.nav} onClick={() => handleClick("/about")}>
           關於Wild
         </div>
