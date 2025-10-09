@@ -30,6 +30,8 @@ function CheckOut() {
   const [remark,setRemark] = useState("")
   const [time,setTime] = useState<timeSlot>()
   const [timeList,setTimeList] = useState<timeSlot[]>([])
+  const [isEmpty,setIsEmpty] =useState(false)
+  const [hasError, setHasError] = useState(false);
   const [date,setDate] = useState("")
   const [error,setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -37,16 +39,21 @@ function CheckOut() {
   const [showAlert, setShowAlert] = useState(false)
   const getTimeSlot = ()=>{
     setTimeSlotLoading(true)
+    setHasError(false)
     axios.post('/api/takeout/time', { count })
     .then((res) => {
         console.log(res.data);
         if (res.data.code === '000') {
+          setIsEmpty(false)
           setTimeList(res.data.data.availableTimes)
           setDate(res.data.data.today)
+       }else if(res.data.code ==='305'){
+        setIsEmpty(true)
        }
      })
     .catch(error => {
         console.error('Error fetching time slots:', error);
+        setHasError(true)
      })
     .finally(()=>{
       setTimeSlotLoading(false)
@@ -203,15 +210,15 @@ function CheckOut() {
         <div className={style.orderInfos}>
           <div className={style.title}>選擇取餐時間</div>
           <div className={style.timeContainer}>
-            {!timeSlotLoading && timeList.map((item) => (
+            {!timeSlotLoading && !hasError && timeList.map((item) => (
               <div key={item.end} className={classNames(style.timeItem,(item.end).slice(0,5) === time?.end && style.active)} onClick={()=>setTimeSlot(item)}>
                 {(item.end).slice(0,5)}
               </div>
             ))}
-            {!timeSlotLoading && !timeList.length && date &&
+            {!timeSlotLoading && !hasError && isEmpty &&
             <div className={style.errorMsg}>目前取餐時間皆已滿</div>            
             }
-            {!timeSlotLoading && !timeList.length && !date && 
+            {!timeSlotLoading && hasError && 
             <div className={style.errorMsg}>伺服器錯誤，請稍後再試</div>            
             }
             {timeSlotLoading &&<div className={style.spinContainer}>

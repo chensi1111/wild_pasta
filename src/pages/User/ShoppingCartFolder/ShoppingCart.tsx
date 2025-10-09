@@ -30,7 +30,7 @@ function ShoppingCart() {
           }}
         >
           {crumbs.map((crumb) => {
-            const isDisabled = crumb.path === "/user/shopping-cart/complete";
+            const isDisabled = crumb.path === "/user/shopping-cart/complete"||crumb.path === "/user/shopping-cart/check-out";
             return (
               <Link
                 key={crumb.path}

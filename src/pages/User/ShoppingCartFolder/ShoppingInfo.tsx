@@ -34,8 +34,7 @@ function ShoppingInfo() {
     }
   }
   const handleCheckout =()=>{
-    if(!shoppingStore.productList.length) return
-    if(shoppingStore.count>30) return
+    if(!shoppingStore.productList.length||(shoppingStore.total)-(shoppingStore.discount)<0||shoppingStore.count>30) return
     navigate('/user/shopping-cart/check-out')
   }
   const toLogin =()=>{
@@ -99,7 +98,7 @@ function ShoppingInfo() {
           <div className={style.listName}>總計</div>
           <div className={style.listCount}>$ {(shoppingStore.total)-(shoppingStore.discount)}</div>
         </div>
-        <div className={classNames(style.checkout,(!shoppingStore.productList.length||shoppingStore.count>30) && style.disable)} onClick={()=>handleCheckout()}>前往結帳</div>
+        <div className={classNames(style.checkout,(!shoppingStore.productList.length||shoppingStore.count>30||(shoppingStore.total)-(shoppingStore.discount)<0) && style.disable)} onClick={()=>handleCheckout()}>前往結帳</div>
         {shoppingStore.count > 30 && <div className={style.error}>訂單超過30筆時，請透過電話提前預約<br/><a href="tel:0212345678">02-12345678</a></div>}
         {!memberStore.login && <div className={style.notice} onClick={()=>toLogin()}>還沒有帳號? 馬上登入開始會員集點</div>}
         {memberStore.login && <div>

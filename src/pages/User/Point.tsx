@@ -45,6 +45,10 @@ function Point() {
             return "取消訂單";
         }else if(status === "use") {
             return "使用點數";
+        }else if(status === "adminPlus"){
+            return "管理員新增";
+        }else if(status === "adminMinus"){
+            return "管理員刪除";
         }
     }
     const pointStyle = (point:number,status:string) => {
@@ -54,6 +58,10 @@ function Point() {
             return `-${point} P`;
         }else if(status === "use") {
             return `-${point} P`;
+        }else if(status === "adminPlus") {
+            return `${point} P`;
+        }else if(status === "adminMinus") {
+            return `${point} P`;
         }
     }
     useEffect(() => {
@@ -72,8 +80,8 @@ function Point() {
         <div className={style.title}>點數記錄</div>
         {!loading && pointData.map((item:any)=>(<div className={style.pointsContainer}>
           <div className={style.leftContainer}>
-            {item.action==='earn' && <div className={style.plusIcon}><FaPlus/></div>}
-            {item.action!=='earn' && <div className={style.minusIcon}><FaMinus/></div>}
+            {(item.action === 'earn' || item.action === 'adminPlus') && <div className={style.plusIcon}><FaPlus/></div>}
+            {(item.action !== 'earn' && item.action !== 'adminPlus') && <div className={style.minusIcon}><FaMinus/></div>}
             <div className={style.pointType}>
               <div className={style.pointTypeTitle}>{getStatus(item.action)}</div>
               <div className={style.pointTypeValue}>{item.ord_number}</div>
@@ -81,7 +89,7 @@ function Point() {
           </div>
           <div className={style.rightContainer}>
             <div className={style.pointType}>
-              <div className={classNames(style.pointTypeNumber,item.action !== 'earn' && style.minus)}>{pointStyle(item.point,item.action)}</div>
+              <div className={classNames(style.pointTypeNumber,(item.action !== 'earn' && item.action !== 'adminPlus')  && style.minus)}>{pointStyle(item.point,item.action)}</div>
               <div className={style.pointTypeValue}>{formatDate(item.create_time)}</div>
               <div className={style.pointTypeValue}>{formatTime(item.create_time)}</div>
             </div>
